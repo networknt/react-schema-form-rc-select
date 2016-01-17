@@ -14,6 +14,7 @@ require('brace/theme/github');
 require('rc-select/assets/index.css');
 import RcSelect from '../src/RcSelect';
 import RaisedButton from 'material-ui/lib/raised-button';
+import $ from 'jquery';
 
 const ThemeManager = require('material-ui/lib/styles/theme-manager');
 const LightRawTheme = require('material-ui/lib/styles/raw-themes/light-raw-theme');
@@ -47,22 +48,19 @@ var ExamplePage = React.createClass({
     },
 
     onSelectChange: function(val) {
-        //console.log("Selected:" + val);
-        fetch(val)
-            .then(function(response) {
-                return response.json()
-            }).then(function(json) {
-                console.log('parsed json', json);
-                this.setState({
-                    schemaJson: JSON.stringify(json.schema, undefined, 2),
-                    formJson: JSON.stringify(json.form, undefined, 2),
-                    selected : val,
-                    schema: json.schema,
-                    model: {},
-                    form: json.form});
-            }.bind(this)).catch(function(ex) {
-               console.error('ex', ex);
-            });
+        $.ajax({
+            type: 'GET',
+            url: val
+        }).done(function(data) {
+            this.setState({
+                schemaJson: JSON.stringify(data.schema, undefined, 2),
+                formJson: JSON.stringify(data.form, undefined, 2),
+                selected : val,
+                schema: data.schema,
+                model: {},
+                form: data.form
+            })
+        }.bind(this));
     },
 
     onModelChange: function(key, val) {

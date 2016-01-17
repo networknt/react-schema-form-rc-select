@@ -19,11 +19,5 @@ module.exports = {
       {test: /\.js$/, exclude: /node_modules/, loader: "babel-loader"},
       {test: /\.css?$/, exclude: /node_modules/, loader: 'style!css'},
     ]
-  },
-  plugins: [
-      new webpack.ProvidePlugin({
-          'Promise': 'imports?this=>global!exports?global.Promise!es6-promise',
-          'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-      })
-  ]
+  }
 };

@@ -4,6 +4,7 @@
 import React from 'react';
 import ComposedComponent from 'react-schema-form/lib/ComposedComponent';
 import Select, {Option} from 'rc-select';
+import $ from 'jquery';
 
 class RcSelect extends React.Component {
 
@@ -22,30 +23,26 @@ class RcSelect extends React.Component {
         if(this.props.form.action) {
             console.log('RcSelect.componentWillMount', this.props.form);
             if(this.props.form.action.get) {
-                fetch(this.props.form.action.get.url)
-                    .then(function(response) {
-                        return response.json()
-                    }).then(function(json) {
-                        console.log('parsed json', json);
-                        this.setState({items: json});
-                    }.bind(this)).catch(function(ex) {
-                        console.error('ex', ex);
-                    });
+                $.ajax({
+                    type: 'GET',
+                    url: this.props.form.action.get.url
+                }).done(function(data) {
+                    this.setState({items: data});
+                }.bind(this)).fail(function(error) {
+                    console.error('error', error);
+                });
             } else if(this.props.form.action.post) {
-                fetch(this.props.form.action.post.url, {
-                    method: 'post',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(this.props.form.action.post.parameter)})
-                    .then(function (response) {
-                        return response.json()
-                    }).then(function (json) {
-                        this.setState({items: json});
-                    }.bind(this)).catch(function (ex) {
-                        console.error('ex', ex);
-                    });
+                $.ajax({
+                    type: 'POST',
+                    url: this.props.form.action.post.url,
+                    data: JSON.stringify(this.props.form.action.post.parameter),
+                    contentType: 'application/json',
+                    dataType: 'json'
+                }).done(function(data) {
+                    this.setState({items: data});
+                }.bind(this)).fail(function(error) {
+                    console.error('error', error);
+                });
             }
         }
     }
