@@ -100,7 +100,7 @@
             "maxTagTextLength": 20,
             "action": {
                 "get": {
-                    "url" : "http://localhost:8001/data/testdata.json"
+                    "url" : "/data/testdata.json"
                 }
             }
 
