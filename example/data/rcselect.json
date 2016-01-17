@@ -76,7 +76,7 @@
             "type": "rc-select",
             "action": {
                 "get": {
-                    "url" : "http://example:8080/api/rs?cmd={\"category\": \"client\", \"name\": \"getClientDropdown\", \"readOnly\": true}"
+                    "url" : "https://www.networknt.com/api/rs?cmd={\"category\": \"client\", \"name\": \"getClientDropdown\", \"readOnly\": true}"
                 }
             }
         },
@@ -86,7 +86,7 @@
             "multiple": true,
             "action": {
                 "post": {
-                    "url" : "http://example:8080/api/rs",
+                    "url" : "https://www.networknt.com/api/rs",
                     "parameter": { "category": "client",  "name": "getClientDropdown", "readOnly": true}
                 }
             }
