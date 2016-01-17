@@ -100,7 +100,7 @@
             "maxTagTextLength": 20,
             "action": {
                 "get": {
-                    "url" : "/data/testdata.json"
+                    "url" : "data/testdata.json"
                 }
             }
 
