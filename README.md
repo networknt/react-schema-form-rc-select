@@ -23,6 +23,9 @@ Then open localhost:8001 in a browser.
 
 # Installation
 
+```
+npm install react-schema-form-rc-select
+```
 This module is an extension of [react-schema-form](https://github.com/networknt/react-schema-form.git) and it must be called from react-schema-form to handle rc-select form type.
 It shows how to customize react-schema-form to add a new field and map a new form type to it. Please see ExamplePage.js for the details.
 
