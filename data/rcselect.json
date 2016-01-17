@@ -1,0 +1,109 @@
+{
+    "schema": {
+        "type": "object",
+        "title": "React Component Select Demo",
+        "required": [
+            "accessLevel",
+            "colors",
+            "role",
+            "clients",
+            "tags"
+        ],
+        "properties": {
+            "name": {
+                "title": "name",
+                "type": "string"
+            },
+            "accessLevel": {
+                "title": "Static Single Select",
+                "type": "string"
+            },
+            "colors": {
+                "title": "Static Multiple Select",
+                "type": "array",
+                "maxItems": 3,
+                "items": [
+                    {"value": "Red", "label": "Red"},
+                    {"value": "Orange", "label": "Orange"},
+                    {"value": "Yellow", "label": "Yellow"},
+                    {"value": "Green", "label": "Green"},
+                    {"value": "Cyan", "label": "Cyan"},
+                    {"value": "Blue", "label": "Blue"},
+                    {"value": "Violet", "label": "Violet"}
+                ]
+            },
+            "role": {
+                "title": "Dynamic Single Select",
+                "type": "string"
+            },
+            "clients": {
+                "title": "Dynamic Multiple Select",
+                "type": "array"
+            },
+            "tags": {
+                "title": "Adding words not in the dropdown",
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 5
+            }
+        }
+    },
+    "form": [
+        "name",
+        {
+            "key": "accessLevel",
+            "type": "rc-select",
+            "multiple": false,
+            "items": [
+                {"value": "A", "label": "Authorized to anyone"},
+                {"value": "N", "label": "Not Accessible"},
+                {"value": "C", "label": "Client Based"},
+                {"value": "R", "label": "Role Based"},
+                {"value": "U", "label": "User Based"},
+                {"value": "CR", "label": "Client and Role Based"},
+                {"value": "CU", "label": "Client and User Based"},
+                {"value": "RU", "label": "Role and User Based"},
+                {"value": "CRU", "label": "Client, Role and User Based"}
+            ]
+        },
+        {
+            "key": "colors",
+            "type": "rc-select",
+            "multiple": true
+        },
+        {
+            "key": "role",
+            "type": "rc-select",
+            "action": {
+                "get": {
+                    "url" : "https://www.networknt.com/api/rs?cmd={\"category\": \"client\", \"name\": \"getClientDropdown\", \"readOnly\": true}"
+                }
+            }
+        },
+        {
+            "key": "clients",
+            "type": "rc-select",
+            "multiple": true,
+            "action": {
+                "post": {
+                    "url" : "https://www.networknt.com/api/rs",
+                    "parameter": { "category": "client",  "name": "getClientDropdown", "readOnly": true}
+                }
+            }
+
+        },
+        {
+            "key": "tags",
+            "type": "rc-select",
+            "multiple": true,
+            "tags": true,
+            "maxTagTextLength": 20,
+            "action": {
+                "get": {
+                    "url" : "http://localhost:8001/data/testdata.json"
+                }
+            }
+
+        }
+    ]
+}
