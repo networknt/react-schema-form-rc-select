@@ -34,8 +34,7 @@ var ExamplePage = React.createClass({
     getInitialState: function() {
         return {
             tests: [
-                { label: "RC Select", value: 'data/rcselect.json' }
-            ],
+                { label: "RC Select", value: 'data/rcselect.json' }            ],
             validationResult: {},
             schema: {},
             form: [],

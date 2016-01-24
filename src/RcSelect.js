@@ -21,7 +21,6 @@ class RcSelect extends React.Component {
     componentWillMount() {
         // load items if needed.
         if(this.props.form.action) {
-            console.log('RcSelect.componentWillMount', this.props.form);
             if(this.props.form.action.get) {
                 $.ajax({
                     type: 'GET',
