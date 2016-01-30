@@ -12,8 +12,9 @@ class RcSelect extends React.Component {
         super(props);
         this.onSelect = this.onSelect.bind(this);
         this.onDeselect = this.onDeselect.bind(this);
+        let emptyValue = this.props.form.schema.type === 'array'? [] : null;
         this.state = {
-            currentValue: this.props.value,
+            currentValue: this.props.value || emptyValue,
             items: this.props.form.items
         };
     }

@@ -35,14 +35,10 @@ import RcSelect from 'react-schema-form-rc-select/lib/RcSelect';
 
 ...
 
-        var mapper = {
-            "rc-select": RcSelect
-        };
-
         var schemaForm = '';
         if (this.state.form.length > 0) {
             schemaForm = (
-                <SchemaForm schema={this.state.schema} form={this.state.form} model={this.state.model} onModelChange={this.onModelChange} mapper={mapper} />
+                <SchemaForm schema={this.state.schema} form={this.state.form} model={this.state.model} onModelChange={this.onModelChange} mapper={{"rc-select": RcSelect}} />
             );
         }
 
