@@ -13,7 +13,7 @@ class RcSelect extends React.Component {
         this.onSelect = this.onSelect.bind(this);
         this.onDeselect = this.onDeselect.bind(this);
         this.state = {
-            currentValue: [],
+            currentValue: this.props.value,
             items: this.props.form.items
         };
     }
