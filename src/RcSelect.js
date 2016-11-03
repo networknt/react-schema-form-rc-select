@@ -108,7 +108,7 @@ class RcSelect extends React.Component {
                     value={this.state.currentValue}
                     onSelect={this.onSelect}
                     onDeselect={this.onDeselect}
-                    style={this.props.form.style || {width: "100%"}}>
+                    style={this.props.form.style || {width: '100%'}}>
                     {options}
                 </Select>
                 {error}
