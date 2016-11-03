@@ -8,16 +8,16 @@ import utils from 'react-schema-form/lib/utils';
 import SchemaForm from 'react-schema-form/lib/SchemaForm';
 require('react-select/less/select.less');
 var Select = require('react-select');
-var Ace = require('react-ace');
+var Ace = require('react-ace').default;
 require('brace/mode/json');
 require('brace/theme/github');
 require('rc-select/assets/index.css');
 import RcSelect from '../src/RcSelect';
-import RaisedButton from 'material-ui/lib/raised-button';
+import RaisedButton from 'material-ui/RaisedButton';
 import $ from 'jquery';
 
-const ThemeManager = require('material-ui/lib/styles/theme-manager');
-const LightRawTheme = require('material-ui/lib/styles/raw-themes/light-raw-theme');
+const ThemeManager = require('material-ui/styles/getMuiTheme').default;
+const LightRawTheme = require('material-ui/styles/baseThemes/lightBaseTheme').default;
 
 var ExamplePage = React.createClass({
 
@@ -42,19 +42,19 @@ var ExamplePage = React.createClass({
             schemaJson: '',
             formJson: '',
             selected: '',
-            muiTheme: ThemeManager.getMuiTheme(LightRawTheme)
+            muiTheme: ThemeManager(LightRawTheme)
         };
     },
 
     onSelectChange: function(val) {
         $.ajax({
             type: 'GET',
-            url: val
+            url: val.value
         }).done(function(data) {
             this.setState({
                 schemaJson: JSON.stringify(data.schema, undefined, 2),
                 formJson: JSON.stringify(data.form, undefined, 2),
-                selected : val,
+                selected : val.value,
                 schema: data.schema,
                 model: {},
                 form: data.form
