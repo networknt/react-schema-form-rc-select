@@ -1,6 +1,6 @@
 {
   "name": "react-schema-form-rc-select",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "React json schema form RcSelect Extension",
   "keywords": [
     "json schema",
@@ -36,7 +36,7 @@
     "rc-select": "^6.6.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
-    "react-schema-form": "^0.2.10",
+    "react-schema-form": "^0.3.0",
     "react-tap-event-plugin": "^1.0.0",
     "tv4": "^1.2.7"
   },

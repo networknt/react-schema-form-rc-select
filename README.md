@@ -11,6 +11,14 @@ An add-on of react-schema-form that support multiple select and a demo for exten
 # [Live demo](http://networknt.github.io/react-schema-form-rc-select/)
 
 # To run the example locally
+
+If you don't have babel-cli installed globally, please do it first.
+
+```
+sudo npm install -g babel-cli
+```
+
+
 Clone the project and run
 
 ```
