@@ -1,6 +1,6 @@
 {
   "name": "react-schema-form-rc-select",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "React json schema form RcSelect Extension",
   "keywords": [
     "json schema",
@@ -28,19 +28,16 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
-    "jquery": "^3.1.1",
     "lodash": "^4.16.6",
-    "material-ui": "^0.16.1",
-    "object-assign": "^4.1.0",
     "objectpath": "^1.2.1",
-    "rc-select": "^6.6.1",
+    "material-ui": ">=0.16.1",
     "react": "^15.3.2",
-    "react-dom": "^15.3.2",
-    "react-schema-form": "^0.3.0",
-    "react-tap-event-plugin": "^1.0.0",
+    "react-schema-form": "^0.3.4",
+    "rc-select": "^6.6.1",
     "tv4": "^1.2.7"
   },
   "devDependencies": {
+    "babel-cli": "^6.24.1",
     "babel-core": "^6.5.2",
     "babel-eslint": "^7.1.0",
     "babel-jest": "^16.0.0",
@@ -57,14 +54,22 @@
     "eslint-plugin-react": "^6.5.0",
     "flux": "^3.1.0",
     "jest-cli": "^16.0.2",
+    "jquery": "^3.1.1",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
+    "react": "^15.3.2",
     "react-ace": "4.0.0",
-    "react-select": "^1.0.0-rc.2",
+    "react-addons-test-utils": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-hot-loader": "^3.0.0-beta.6",
+    "react-select": "^1.0.0-rc.5",
+    "react-tap-event-plugin": "^2.0.0",
     "rimraf": "^2.5.4",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.3",
     "webpack-dev-server": "^1.16.2"
+  },
+  "peerDependencies": {
   },
   "scripts": {
     "lint": "eslint src",
