@@ -4,7 +4,6 @@
 import React from 'react';
 import ComposedComponent from 'react-schema-form/lib/ComposedComponent';
 import Select, {Option} from 'rc-select';
-import $ from 'jquery';
 
 class RcSelect extends React.Component {
 
@@ -19,29 +18,40 @@ class RcSelect extends React.Component {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         // load items if needed.
         if(this.props.form.action) {
             if(this.props.form.action.get) {
-                $.ajax({
-                    type: 'GET',
-                    url: this.props.form.action.get.url
-                }).done(function(data) {
-                    this.setState({items: data});
-                }.bind(this)).fail(function(error) {
-                    console.error('error', error);
-                });
+                fetch(this.props.form.action.get.url)
+                    .then(res => {
+                        if(!res.ok) throw Error(res.statusText);
+                    })
+                    .then(res => res.json())
+                    .then(res => {
+                        console.log(res);
+                        this.setState({items: res});
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
             } else if(this.props.form.action.post) {
-                $.ajax({
-                    type: 'POST',
-                    url: this.props.form.action.post.url,
-                    data: JSON.stringify(this.props.form.action.post.parameter),
-                    contentType: 'application/json',
-                    dataType: 'json'
-                }).done(function(data) {
-                    this.setState({items: data});
-                }.bind(this)).fail(function(error) {
-                    console.error('error', error);
+                fetch(this.props.form.action.post.url, {
+                    method: "POST",
+                    headers: {
+                        'content-type':'application/json'
+                    },
+                    body: JSON.stringify(this.props.form.action.post.parameter)
+                })
+                .then(res => {
+                    if(!res.ok) throw Error(res.statusText);
+                })
+                .then(res => res.json())
+                .then(res => {
+                    console.log(res);
+                    this.setState({items: res});
+                })
+                .catch(error => {
+                    console.error(error);
                 });
             }
         }
@@ -80,17 +90,43 @@ class RcSelect extends React.Component {
     }
 
     render() {
-        //console.log("render", this.props, this.state);
+        console.log("render", this.props, this.state);
         let options = [];
         if(this.state.items && this.state.items.length > 0) {
             options = this.state.items.map((item, idx) => (
                 <Option key={idx} value={item.value}>{item.label}</Option>
             ));
+        } else if(this.props.form.titleMap) {
+            console.log("titleMap", this.props.form.titleMap);
+            for(let i = 0; i < this.props.form.titleMap.length; i++) {
+                options.push(
+                    <Option key={this.props.form.titleMap[i].value}>
+                        {this.props.form.titleMap[i].name}
+                    </Option>
+                )
+            }
+            /*
+            options = this.props.form.titleMap.map((item, idx) => (
+                <Option key={idx} value={item.value}>{item.name}</Option>
+            ));
+            */
         }
         let error = '';
         if(this.props.error) {
             error = <div style={{color: 'red'}}>{this.props.error}</div>
         }
+        console.log("option1", options[0]);
+        /*
+        return (
+            <div style={this.props.form.style || {width: '100%'}}>
+                <div>{this.props.form.title}</div>
+                <Select>
+                    <Option value="jack">jack</Option>
+                </Select>
+            </div>
+
+        );
+        */
         return (
             <div>
                 <div>{this.props.form.title}</div>
@@ -108,7 +144,7 @@ class RcSelect extends React.Component {
                     value={this.state.currentValue}
                     onSelect={this.onSelect}
                     onDeselect={this.onDeselect}
-                    style={this.props.form.style || {width: '100%'}}>
+                    >
                     {options}
                 </Select>
                 {error}

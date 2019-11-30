@@ -1,15 +1,18 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var ExamplePage  = require('./ExamplePage');
+import React from "react";
+import ReactDOM from "react-dom";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import ExamplePage from "./ExamplePage";
 
-//Needed for React Developer Tools
-window.React = React;
+const theme = createMuiTheme({
+    typography: {
+        useNextVariants: true,
+        fontSize: 22
+    }
+});
 
-//Needed for onTouchTap
-//Can go away when react 1.0 release
-//Check this repo:
-//https://github.com/zilverline/react-tap-event-plugin
-let injectTapEventPlugin = require('react-tap-event-plugin');
-injectTapEventPlugin();
-
-ReactDOM.render(<ExamplePage />, document.getElementById("app"));
+ReactDOM.render(
+    <MuiThemeProvider theme={theme}>
+        <ExamplePage />
+    </MuiThemeProvider>,
+    document.getElementById("app")
+);

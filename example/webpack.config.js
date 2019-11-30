@@ -1,43 +1,56 @@
-var webpack = require('webpack');
-var path = require('path');
-//var nodeModulesPath = path.resolve(__dirname, 'node_modules');
+const path = require("path");
 
 module.exports = {
-  context: __dirname,
-  devServer: {
-    contentBase: __dirname
-  },
-  entry: {
-    form: './main'
-  },
-  output: {
-    filename: '[name].entry.js'
-  },
-  resolve: {
-    alias: {
-      // Use uncompiled version
-      'react-schema-form-rc-select': '../src'
+    context: __dirname,
+    devServer: {
+        contentBase: __dirname
+    },
+    devtool: "cheap-source-map",
+    entry: {
+        form: "./main"
+    },
+    output: {
+        filename: "[name].entry.js"
+    },
+    resolve: {
+        alias: {
+            // Use uncompiled version
+            "react-schema-form-rc-select": "../src",
+            // Use compiled version
+            // 'react-schema-form-rc-select': '../dist/react-schema-form-rc-select.min.js',
+            react: path.resolve("./node_modules/react"),
+            "react-dom": path.resolve("./node_modules/react-dom")
+        }
+    },
+    module: {
+        rules: [
+            {
+                test: /\.(js|jsx)$/,
+                use: [
+                    {
+                        loader: "babel-loader",
+                        query: {
+                            presets: [
+                                "@babel/preset-react",
+                                "@babel/preset-flow"
+                            ],
+                            plugins: ["@babel/plugin-proposal-class-properties"]
+                        }
+                    }
+                ],
+                exclude: /node_modules/
+            },
+            {
+                test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+                use: [
+                    {
+                        loader: "url-loader",
+                        options: {
+                            limit: 100000
+                        }
+                    }
+                ]
+            }
+        ]
     }
-  },
-  module: {
-      loaders: [
-
-          // I highly recommend using the babel-loader as it gives you
-          // ES6/7 syntax and JSX transpiling out of the box
-          {
-              test: /\.(js|jsx)$/,
-              loaders: ['babel'],
-              exclude: /node_modules/
-          },
-          {test: /\.less$/, loader: "style!css!less"},
-          {test: /\.css?$/, loader: 'style!css'},
-          {test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }
-      ]
-  },
-  plugins: [
-      new webpack.ProvidePlugin({
-          'Promise': 'imports?this=>global!exports?global.Promise!es6-promise',
-          'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-      })
-  ]
 };

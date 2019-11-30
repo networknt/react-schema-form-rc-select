@@ -1,23 +1,31 @@
-var webpack = require('webpack');
 module.exports = {
-  entry: './src/index',
+  entry: ['react-hot-loader/patch', './src/index'],
   output: {
-    filename: 'dist/react-schema-form-rc-select.min.js',
+    filename: 'react-schema-form-rc-select.min.js',
+    path: __dirname + '/dist',
     library: 'ReactSchemaFormRcSelect',
     libraryTarget: 'umd'
   },
+  devtool: 'source-map',
   externals: {
     'react': {
       root: 'React',
       amd: 'react',
       commonjs: 'react',
       commonjs2: 'react'
+    },
+    'react-dom': {
+      root: 'ReactDOM',
+      amd: 'react-dom',
+      commonjs: 'react-dom',
+      commonjs2: 'react-dom'
     }
   },
   module: {
-    loaders: [
-      {test: /\.js$/, exclude: /node_modules/, loader: "babel"},
-      {test: /\.css?$/, exclude: /node_modules/, loader: 'style!css'},
+    rules: [
+      {test: /\.js$/, exclude: /node_modules/, use: [{
+        loader: 'babel-loader'
+      }]},
     ]
   }
 };
