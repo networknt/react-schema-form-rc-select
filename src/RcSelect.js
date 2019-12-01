@@ -36,9 +36,7 @@ class RcSelect extends React.Component<Props, State> {
     componentDidMount() {
         // load items if needed.
         const {
-            form: {
-                action
-            }
+            form: { action }
         } = this.props;
         const { get, post } = action || {};
         if (action) {

@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+## 0.3.1 - 2019-12-01
+### Added
+
+### Changed
+- Resolve all lint issues. 
+- User unnamed export for the single module RcSelect.
+
 ## 0.3.0 - 2019-11-30
 ### Added
 
