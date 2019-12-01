@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+## 0.3.0 - 2019-11-30
+### Added
+
+### Changed
+- Upgrade to react-schema-form 0.8.0
+- Upgrade all other dependencies to the latest.
+
 ## 0.2.1 - 2017-06-02
 ### Added
 
