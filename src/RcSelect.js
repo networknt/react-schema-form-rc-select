@@ -1,18 +1,17 @@
 /**
  * Created by steve on 15/09/15.
  */
-import React from 'react';
-import { ComposedComponent } from 'react-schema-form';
-import Select, { Option } from 'rc-select';
-import 'rc-select/assets/index.css';
+import React from "react";
+import { ComposedComponent } from "react-schema-form";
+import Select, { Option } from "rc-select";
+import "rc-select/assets/index.css";
 
 class RcSelect extends React.Component {
-
     constructor(props) {
         super(props);
         this.onSelect = this.onSelect.bind(this);
         this.onDeselect = this.onDeselect.bind(this);
-        let emptyValue = this.props.form.schema.type === 'array'? [] : null;
+        const emptyValue = this.props.form.schema.type === "array"? [] : null;
         this.state = {
             currentValue: this.props.value || emptyValue,
             items: this.props.form.items
