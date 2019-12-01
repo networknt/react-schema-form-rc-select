@@ -38,7 +38,7 @@ npm install react-schema-form-rc-select
 This module is an extension of [react-schema-form](https://github.com/networknt/react-schema-form.git), and it must be called from react-schema-form to handle rc-select form type. It shows how to customize the react-schema-form to add a new field and map a new form type to it. Please see App.js in the example folder for the details.
 
 ```js
-import { RcSelect } from "react-schema-form-rc-select";
+import RcSelect from "react-schema-form-rc-select";
 ...
 
         var schemaForm = '';

@@ -19,18 +19,31 @@ class RcSelect extends React.Component<Props, State> {
         super(props);
         this.onSelect = this.onSelect.bind(this);
         this.onDeselect = this.onDeselect.bind(this);
-        const emptyValue = this.props.form.schema.type === "array" ? [] : null;
+        const {
+            value,
+            form: {
+                schema: { type },
+                items
+            }
+        } = this.props;
+        const emptyValue = type === "array" ? [] : null;
         this.state = {
-            currentValue: this.props.value || emptyValue,
-            items: this.props.form.items
+            currentValue: value || emptyValue,
+            items
         };
     }
 
     componentDidMount() {
         // load items if needed.
-        if (this.props.form.action) {
-            if (this.props.form.action.get) {
-                fetch(this.props.form.action.get.url)
+        const {
+            form: {
+                action
+            }
+        } = this.props;
+        const { get, post } = action || {};
+        if (action) {
+            if (get) {
+                fetch(get.url)
                     .then(res => {
                         if (!res.ok) throw Error(res.statusText);
                         return res;
@@ -42,13 +55,13 @@ class RcSelect extends React.Component<Props, State> {
                     .catch(error => {
                         console.error(error);
                     });
-            } else if (this.props.form.action.post) {
-                fetch(this.props.form.action.post.url, {
+            } else if (post) {
+                fetch(post.url, {
                     method: "POST",
                     headers: {
                         "content-type": "application/json"
                     },
-                    body: JSON.stringify(this.props.form.action.post.parameter)
+                    body: JSON.stringify(post.parameter)
                 })
                     .then(res => {
                         if (!res.ok) throw Error(res.statusText);
@@ -67,25 +80,38 @@ class RcSelect extends React.Component<Props, State> {
     }
 
     onSelect(value) {
-        if (this.props.form.schema.type === "array") {
+        const {
+            onChangeValidate,
+            form: {
+                schema: { type }
+            }
+        } = this.props;
+        if (type === "array") {
             // multiple select type array
             this.setState(
                 prevState => ({
                     currentValue: prevState.currentValue.concat(value)
                 }),
                 () => {
-                    this.props.onChangeValidate(this.state.currentValue);
+                    const { currentValue } = this.state;
+                    onChangeValidate(currentValue);
                 }
             );
         } else {
             // single select type string fake an event here.
             this.setState({ currentValue: value });
-            this.props.onChangeValidate({ target: { value } });
+            onChangeValidate({ target: { value } });
         }
     }
 
     onDeselect(value) {
-        if (this.props.form.schema.type === "array") {
+        const {
+            onChangeValidate,
+            form: {
+                schema: { type }
+            }
+        } = this.props;
+        if (type === "array") {
             this.setState(
                 prevState => ({
                     currentValue: prevState.currentValue.filter(
@@ -93,53 +119,74 @@ class RcSelect extends React.Component<Props, State> {
                     )
                 }),
                 () => {
-                    this.props.onChangeValidate(this.state.currentValue);
+                    const { currentValue } = this.state;
+                    onChangeValidate(currentValue);
                 }
             );
         }
     }
 
     render() {
+        const {
+            error,
+            form: {
+                title,
+                className,
+                dropdownClassName,
+                dropdownStyle,
+                dropdownMenuStyle,
+                allowClear,
+                tags,
+                maxTagTextLength,
+                multiple,
+                combobox,
+                disabled,
+                style,
+                titleMap
+            }
+        } = this.props;
+        const { currentValue } = this.state;
+        const { items } = this.state;
         let options = [];
-        if (this.state.items && this.state.items.length > 0) {
-            options = this.state.items.map(item => (
+        if (items && items.length > 0) {
+            options = items.map(item => (
                 <Option key={item.value} value={item.value}>
                     {item.label}
                 </Option>
             ));
-        } else if (this.props.form.titleMap) {
-            options = this.props.form.titleMap.map(item => (
+        } else if (titleMap) {
+            options = titleMap.map(item => (
                 <Option key={item.value} value={item.value}>
                     {item.name}
                 </Option>
             ));
         }
-        let error = "";
-        if (this.props.error) {
-            error = <div style={{ color: "red" }}>{this.props.error}</div>;
+        let err = "";
+        if (error) {
+            err = <div style={{ color: "red" }}>{error}</div>;
         }
         return (
             <div>
-                <div>{this.props.form.title}</div>
+                <div>{title}</div>
                 <Select
-                    className={this.props.form.className}
-                    dropdownClassName={this.props.form.dropdownClassName}
-                    dropdownStyle={this.props.form.dropdownStyle}
-                    dropdownMenuStyle={this.props.form.dropdownMenuStyle}
-                    allowClear={this.props.form.allowClear}
-                    tags={this.props.form.tags}
-                    maxTagTextLength={this.props.form.maxTagTextLength}
-                    multiple={this.props.form.multiple}
-                    combobox={this.props.form.combobox}
-                    disabled={this.props.form.disabled}
-                    value={this.state.currentValue}
+                    className={className}
+                    dropdownClassName={dropdownClassName}
+                    dropdownStyle={dropdownStyle}
+                    dropdownMenuStyle={dropdownMenuStyle}
+                    allowClear={allowClear}
+                    tags={tags}
+                    maxTagTextLength={maxTagTextLength}
+                    multiple={multiple}
+                    combobox={combobox}
+                    disabled={disabled}
+                    value={currentValue}
                     onSelect={this.onSelect}
                     onDeselect={this.onDeselect}
-                    style={this.props.form.style || { width: "100%" }}
+                    style={style || { width: "100%" }}
                 >
                     {options}
                 </Select>
-                {error}
+                {err}
             </div>
         );
     }

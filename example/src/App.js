@@ -13,7 +13,7 @@ import {
     Select
 } from "@material-ui/core";
 import ErrorBoundary from "./ErrorBoundary";
-import { RcSelect } from "react-schema-form-rc-select";
+import RcSelect from "react-schema-form-rc-select";
 
 const examples = {
 };
@@ -70,7 +70,6 @@ class App extends React.Component<void, State> {
                 showErrors: false
             });
         } else {
-            console.log(value);
             fetch(value)
                 .then(x => x.json())
                 .then(({ form, schema, model }) => {
