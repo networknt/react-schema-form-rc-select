@@ -1,4 +1,9 @@
 # react-schema-form-rc-select
+
+[![Join the chat at https://gitter.im/networknt/react-schema-form](https://badges.gitter.im/networknt/react-schema-form.svg)](https://gitter.im/networknt/react-schema-form?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![CircleCI](https://circleci.com/gh/networknt/react-schema-form-rc-select.svg?style=svg)](https://circleci.com/gh/networknt/react-schema-form-rc-select)
+[![npm package](https://img.shields.io/npm/v/react-schema-form-rc-select.svg?style=flat-square)](https://www.npmjs.org/package/react-schema-form-rc-select)
+
 An add-on of react-schema-form that support multiple select and a demo for extending react-schema-form with new components.
 
 # Features

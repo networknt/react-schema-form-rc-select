@@ -2,9 +2,9 @@
  * Created by steve on 15/09/15.
  */
 import React from 'react';
-import ComposedComponent from 'react-schema-form/lib/ComposedComponent';
-import Select, {Option} from 'rc-select';
-import $ from 'jquery';
+import { ComposedComponent } from 'react-schema-form';
+import Select, { Option } from 'rc-select';
+import 'rc-select/assets/index.css';
 
 class RcSelect extends React.Component {
 
@@ -19,36 +19,47 @@ class RcSelect extends React.Component {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         // load items if needed.
         if(this.props.form.action) {
             if(this.props.form.action.get) {
-                $.ajax({
-                    type: 'GET',
-                    url: this.props.form.action.get.url
-                }).done(function(data) {
-                    this.setState({items: data});
-                }.bind(this)).fail(function(error) {
-                    console.error('error', error);
-                });
+                fetch(this.props.form.action.get.url)
+                    .then(res => {
+                        if(!res.ok) throw Error(res.statusText);
+                        return res;
+                    })
+                    .then(res => res.json())
+                    .then(res => {
+                        this.setState({items: res});
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
             } else if(this.props.form.action.post) {
-                $.ajax({
-                    type: 'POST',
-                    url: this.props.form.action.post.url,
-                    data: JSON.stringify(this.props.form.action.post.parameter),
-                    contentType: 'application/json',
-                    dataType: 'json'
-                }).done(function(data) {
-                    this.setState({items: data});
-                }.bind(this)).fail(function(error) {
-                    console.error('error', error);
+                fetch(this.props.form.action.post.url, {
+                    method: "POST",
+                    headers: {
+                        'content-type':'application/json'
+                    },
+                    body: JSON.stringify(this.props.form.action.post.parameter)
+                })
+                .then(res => {
+                    if(!res.ok) throw Error(res.statusText);
+                    return res;
+                })
+                .then(res => res.json())
+                .then(res => {
+                    console.log(res);
+                    this.setState({items: res});
+                })
+                .catch(error => {
+                    console.error(error);
                 });
             }
         }
     }
 
     onSelect(value, option) {
-        //console.log('RcSelect onSelect is called', value, option);
         if(this.props.form.schema.type === 'array') {
             // multiple select type array
             let v = this.state.currentValue;
@@ -65,7 +76,6 @@ class RcSelect extends React.Component {
     }
 
     onDeselect(value, option) {
-        //console.log('RcSelect onDeselect is called', value, option);
         if (this.props.form.schema.type === 'array') {
             let v = this.state.currentValue;
             let index = v.indexOf(value);
@@ -80,11 +90,14 @@ class RcSelect extends React.Component {
     }
 
     render() {
-        //console.log("render", this.props, this.state);
         let options = [];
         if(this.state.items && this.state.items.length > 0) {
             options = this.state.items.map((item, idx) => (
                 <Option key={idx} value={item.value}>{item.label}</Option>
+            ));
+        } else if(this.props.form.titleMap) {
+            options = this.props.form.titleMap.map((item, idx) => (
+                <Option key={idx} value={item.value}>{item.name}</Option>
             ));
         }
         let error = '';

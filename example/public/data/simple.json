@@ -1,0 +1,18 @@
+{
+    "schema": {
+        "type": "object",
+        "title": "React Component Simple",
+        "required": [
+            "name"
+        ],
+        "properties": {
+            "name": {
+                "title": "name",
+                "type": "string"
+            }
+        }
+    },
+    "form": [
+        "name"
+    ]
+}
