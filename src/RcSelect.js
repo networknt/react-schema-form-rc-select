@@ -2,8 +2,9 @@
  * Created by steve on 15/09/15.
  */
 import React from 'react';
-import ComposedComponent from 'react-schema-form/lib/ComposedComponent';
-import Select, {Option} from 'rc-select';
+import { ComposedComponent } from 'react-schema-form';
+import Select, { Option } from 'rc-select';
+import 'rc-select/assets/index.css';
 
 class RcSelect extends React.Component {
 
@@ -25,10 +26,10 @@ class RcSelect extends React.Component {
                 fetch(this.props.form.action.get.url)
                     .then(res => {
                         if(!res.ok) throw Error(res.statusText);
+                        return res;
                     })
                     .then(res => res.json())
                     .then(res => {
-                        console.log(res);
                         this.setState({items: res});
                     })
                     .catch(error => {
@@ -44,6 +45,7 @@ class RcSelect extends React.Component {
                 })
                 .then(res => {
                     if(!res.ok) throw Error(res.statusText);
+                    return res;
                 })
                 .then(res => res.json())
                 .then(res => {
@@ -58,7 +60,6 @@ class RcSelect extends React.Component {
     }
 
     onSelect(value, option) {
-        //console.log('RcSelect onSelect is called', value, option);
         if(this.props.form.schema.type === 'array') {
             // multiple select type array
             let v = this.state.currentValue;
@@ -75,7 +76,6 @@ class RcSelect extends React.Component {
     }
 
     onDeselect(value, option) {
-        //console.log('RcSelect onDeselect is called', value, option);
         if (this.props.form.schema.type === 'array') {
             let v = this.state.currentValue;
             let index = v.indexOf(value);
@@ -90,43 +90,20 @@ class RcSelect extends React.Component {
     }
 
     render() {
-        console.log("render", this.props, this.state);
         let options = [];
         if(this.state.items && this.state.items.length > 0) {
             options = this.state.items.map((item, idx) => (
                 <Option key={idx} value={item.value}>{item.label}</Option>
             ));
         } else if(this.props.form.titleMap) {
-            console.log("titleMap", this.props.form.titleMap);
-            for(let i = 0; i < this.props.form.titleMap.length; i++) {
-                options.push(
-                    <Option key={this.props.form.titleMap[i].value}>
-                        {this.props.form.titleMap[i].name}
-                    </Option>
-                )
-            }
-            /*
             options = this.props.form.titleMap.map((item, idx) => (
                 <Option key={idx} value={item.value}>{item.name}</Option>
             ));
-            */
         }
         let error = '';
         if(this.props.error) {
             error = <div style={{color: 'red'}}>{this.props.error}</div>
         }
-        console.log("option1", options[0]);
-        /*
-        return (
-            <div style={this.props.form.style || {width: '100%'}}>
-                <div>{this.props.form.title}</div>
-                <Select>
-                    <Option value="jack">jack</Option>
-                </Select>
-            </div>
-
-        );
-        */
         return (
             <div>
                 <div>{this.props.form.title}</div>
@@ -144,7 +121,7 @@ class RcSelect extends React.Component {
                     value={this.state.currentValue}
                     onSelect={this.onSelect}
                     onDeselect={this.onDeselect}
-                    >
+                    style={this.props.form.style || {width: '100%'}}>
                     {options}
                 </Select>
                 {error}

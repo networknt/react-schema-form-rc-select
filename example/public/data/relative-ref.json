@@ -1,0 +1,37 @@
+{
+    "schema": {
+        "type": "object",
+        "title": "React Component Select Relative Reference Demo",
+        "required": [
+            "tags"
+        ],
+        "properties": {
+            "name": {
+                "title": "name",
+                "type": "string"
+            },
+            "tags": {
+                "title": "Adding words not in the dropdown",
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 5
+            }
+        }
+    },
+    "form": [
+        "name",
+        {
+            "key": "tags",
+            "type": "rc-select",
+            "multiple": true,
+            "tags": true,
+            "maxTagTextLength": 20,
+            "action": {
+                "get": {
+                    "url" : "data/testdata.json"
+                }
+            }
+
+        }
+    ]
+}

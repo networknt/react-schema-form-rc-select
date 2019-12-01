@@ -1,1 +1,1 @@
-exports.RcSelect = require('./RcSelect');
+export { default as RcSelect } from "./RcSelect";

@@ -1,10 +1,10 @@
-// @flow
 import React from "react";
 import { SchemaForm, utils } from "react-schema-form";
 import "ace-builds";
-import AceEditor from "react-ace";
+//import 'ace-builds/webpack-resolver'
 import "ace-builds/src-noconflict/mode-json";
 import "ace-builds/src-noconflict/theme-github";
+import AceEditor from "react-ace";
 import {
     Button,
     FormControl,
@@ -12,21 +12,17 @@ import {
     MenuItem,
     Select
 } from "@material-ui/core";
-import Localizer from "./data/tests/localizer";
 import ErrorBoundary from "./ErrorBoundary";
-import RcSelect from '../src/RcSelect';
-import jsonWorkerUrl from "file-loader!ace-builds/src-noconflict/worker-json";
-ace.config.setModuleUrl("ace/mode/json_worker", jsonWorkerUrl);
+import { RcSelect } from "react-schema-form-rc-select";
 
 const examples = {
-    localizer: Localizer
 };
 
 type State = {
     showErrors: boolean
 };
 
-class ExamplePage extends React.Component<void, State> {
+class App extends React.Component<void, State> {
     tempModel = {};
 
     state = {
@@ -34,6 +30,7 @@ class ExamplePage extends React.Component<void, State> {
             { label: "Simple Text", value: 'data/simple.json' },
             { label: "Static Single", value: 'data/static-single.json'},
             { label: "Static Multiple", value: 'data/static-multiple.json'},
+            { label: "Relative Ref", value: 'data/relative-ref.json'},
             { label: "RC Select", value: 'data/rcselect.json' }
         ],
         validationResult: {},
@@ -43,7 +40,6 @@ class ExamplePage extends React.Component<void, State> {
         schemaJson: "",
         formJson: "",
         selected: "",
-        localization: undefined,
         showErrors: false
     };
 
@@ -71,10 +67,10 @@ class ExamplePage extends React.Component<void, State> {
                 schema: elem.schema,
                 model: elem.model || {},
                 form: elem.form,
-                localization: elem.localization,
                 showErrors: false
             });
         } else {
+            console.log(value);
             fetch(value)
                 .then(x => x.json())
                 .then(({ form, schema, model }) => {
@@ -87,6 +83,9 @@ class ExamplePage extends React.Component<void, State> {
                         form,
                         showErrors: false
                     });
+                })
+                .catch(error => {
+                    console.error(error);
                 });
         }
     };
@@ -132,7 +131,6 @@ class ExamplePage extends React.Component<void, State> {
             tests,
             formJson,
             schemaJson,
-            localization,
             showErrors
         } = this.state;
         const mapper = {
@@ -150,7 +148,6 @@ class ExamplePage extends React.Component<void, State> {
                         onModelChange={this.onModelChange}
                         mapper={mapper}
                         model={model}
-                        localization={localization}
                         showErrors={showErrors}
                     />
                 </ErrorBoundary>
@@ -223,6 +220,7 @@ class ExamplePage extends React.Component<void, State> {
                             width="800px"
                             onChange={this.onFormChange}
                             name="aceForm"
+                            setOptions={{ useWorker: false }}
                             value={formJson}
                             editorProps={{ $blockScrolling: true }}
                         />
@@ -234,6 +232,7 @@ class ExamplePage extends React.Component<void, State> {
                             width="800px"
                             onChange={this.onSchemaChange}
                             name="aceSchema"
+                            setOptions={{ useWorker: false }}
                             value={schemaJson}
                             editorProps={{ $blockScrolling: true }}
                         />
@@ -244,4 +243,4 @@ class ExamplePage extends React.Component<void, State> {
     }
 }
 
-export default ExamplePage;
+export default App;
