@@ -1,1 +1,0 @@
-exports.RcSelect = require('./RcSelect');

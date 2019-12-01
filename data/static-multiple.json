@@ -1,0 +1,41 @@
+{
+    "schema": {
+        "type": "object",
+        "title": "React Component Select Demo Static Multiple",
+        "required": [
+            "colors",
+            "role",
+            "clients",
+            "tags"
+        ],
+        "properties": {
+            "name": {
+                "title": "name",
+                "type": "string"
+            },
+            "colors": {
+                "title": "Static Multiple Select",
+                "type": "array",
+                "maxItems": 3
+            }
+        }
+    },
+    "form": [
+        "name",
+        {
+            "key": "colors",
+            "type": "rc-select",
+            "multiple": true,
+            "titleMap": [
+                {"value": "Red", "name": "Red"},
+                {"value": "Orange", "name": "Orange"},
+                {"value": "Yellow", "name": "Yellow"},
+                {"value": "Green", "name": "Green"},
+                {"value": "Cyan", "name": "Cyan"},
+                {"value": "Blue", "name": "Blue"},
+                {"value": "Violet", "name": "Violet"}
+            ]
+
+        }
+    ]
+}

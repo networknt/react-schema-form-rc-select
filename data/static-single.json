@@ -1,0 +1,38 @@
+{
+    "schema": {
+        "type": "object",
+        "title": "React Component Select Demo Static",
+        "required": [
+            "accessLevel"
+        ],
+        "properties": {
+            "name": {
+                "title": "name",
+                "type": "string"
+            },
+            "accessLevel": {
+                "title": "Static Single Select",
+                "type": "string"
+            }
+        }
+    },
+    "form": [
+        "name",
+        {
+            "key": "accessLevel",
+            "type": "rc-select",
+            "multiple": false,
+            "titleMap": [
+                {"value": "A", "name": "Authorized to anyone"},
+                {"value": "N", "name": "Not Accessible"},
+                {"value": "C", "name": "Client Based"},
+                {"value": "R", "name": "Role Based"},
+                {"value": "U", "name": "User Based"},
+                {"value": "CR", "name": "Client and Role Based"},
+                {"value": "CU", "name": "Client and User Based"},
+                {"value": "RU", "name": "Role and User Based"},
+                {"value": "CRU", "name": "Client, Role and User Based"}
+            ]
+        }
+    ]
+}
