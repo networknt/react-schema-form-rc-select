@@ -1,3 +1,4 @@
+// @flow
 /**
  * Created by steve on 15/09/15.
  */
@@ -6,12 +7,19 @@ import { ComposedComponent } from "react-schema-form";
 import Select, { Option } from "rc-select";
 import "rc-select/assets/index.css";
 
-class RcSelect extends React.Component {
+type Props = {
+    form: any,
+    value: any,
+    error: any,
+    onChangeValidate: any
+};
+
+class RcSelect extends React.Component<Props, State> {
     constructor(props) {
         super(props);
         this.onSelect = this.onSelect.bind(this);
         this.onDeselect = this.onDeselect.bind(this);
-        const emptyValue = this.props.form.schema.type === "array"? [] : null;
+        const emptyValue = this.props.form.schema.type === "array" ? [] : null;
         this.state = {
             currentValue: this.props.value || emptyValue,
             items: this.props.form.items
@@ -20,88 +28,95 @@ class RcSelect extends React.Component {
 
     componentDidMount() {
         // load items if needed.
-        if(this.props.form.action) {
-            if(this.props.form.action.get) {
+        if (this.props.form.action) {
+            if (this.props.form.action.get) {
                 fetch(this.props.form.action.get.url)
                     .then(res => {
-                        if(!res.ok) throw Error(res.statusText);
+                        if (!res.ok) throw Error(res.statusText);
                         return res;
                     })
                     .then(res => res.json())
                     .then(res => {
-                        this.setState({items: res});
+                        this.setState({ items: res });
                     })
                     .catch(error => {
                         console.error(error);
                     });
-            } else if(this.props.form.action.post) {
+            } else if (this.props.form.action.post) {
                 fetch(this.props.form.action.post.url, {
                     method: "POST",
                     headers: {
-                        'content-type':'application/json'
+                        "content-type": "application/json"
                     },
                     body: JSON.stringify(this.props.form.action.post.parameter)
                 })
-                .then(res => {
-                    if(!res.ok) throw Error(res.statusText);
-                    return res;
-                })
-                .then(res => res.json())
-                .then(res => {
-                    console.log(res);
-                    this.setState({items: res});
-                })
-                .catch(error => {
-                    console.error(error);
-                });
+                    .then(res => {
+                        if (!res.ok) throw Error(res.statusText);
+                        return res;
+                    })
+                    .then(res => res.json())
+                    .then(res => {
+                        console.log(res);
+                        this.setState({ items: res });
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
             }
         }
     }
 
-    onSelect(value, option) {
-        if(this.props.form.schema.type === 'array') {
+    onSelect(value) {
+        if (this.props.form.schema.type === "array") {
             // multiple select type array
-            let v = this.state.currentValue;
-            v.push(value);
-            this.setState({
-                currentValue: v
-            });
-            this.props.onChangeValidate(v);
+            this.setState(
+                prevState => ({
+                    currentValue: prevState.currentValue.concat(value)
+                }),
+                () => {
+                    this.props.onChangeValidate(this.state.currentValue);
+                }
+            );
         } else {
             // single select type string fake an event here.
-            this.setState({currentValue: value});
-            this.props.onChangeValidate({target: {value: value}});
+            this.setState({ currentValue: value });
+            this.props.onChangeValidate({ target: { value } });
         }
     }
 
-    onDeselect(value, option) {
-        if (this.props.form.schema.type === 'array') {
-            let v = this.state.currentValue;
-            let index = v.indexOf(value);
-            if (index > -1) {
-                v.splice(index, 1);
-            }
-            this.setState({
-                currentValue: v
-            });
-            this.props.onChangeValidate(v);
+    onDeselect(value) {
+        if (this.props.form.schema.type === "array") {
+            this.setState(
+                prevState => ({
+                    currentValue: prevState.currentValue.filter(
+                        e => e !== value
+                    )
+                }),
+                () => {
+                    this.props.onChangeValidate(this.state.currentValue);
+                }
+            );
         }
     }
 
     render() {
         let options = [];
-        if(this.state.items && this.state.items.length > 0) {
-            options = this.state.items.map((item, idx) => (
-                <Option key={idx} value={item.value}>{item.label}</Option>
+        if (this.state.items && this.state.items.length > 0) {
+            options = this.state.items.map(item => (
+                <Option key={item.value} value={item.value}>
+                    {item.label}
+                </Option>
             ));
-        } else if(this.props.form.titleMap) {
-            options = this.props.form.titleMap.map((item, idx) => (
-                <Option key={idx} value={item.value}>{item.name}</Option>
+        } else if (this.props.form.titleMap) {
+            options = this.props.form.titleMap.map(item => (
+                <Option key={item.value} value={item.value}>
+                    {item.name}
+                </Option>
             ));
         }
-        let error = '';
-        if(this.props.error) {
-            error = <div style={{color: 'red'}}>{this.props.error}</div>
+        let error = "";
+        if (this.props.error) {
+            error = <div style={{ color: "red" }}>{this.props.error}</div>;
         }
         return (
             <div>
@@ -120,7 +135,8 @@ class RcSelect extends React.Component {
                     value={this.state.currentValue}
                     onSelect={this.onSelect}
                     onDeselect={this.onDeselect}
-                    style={this.props.form.style || {width: '100%'}}>
+                    style={this.props.form.style || { width: "100%" }}
+                >
                     {options}
                 </Select>
                 {error}

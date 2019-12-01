@@ -3,10 +3,7 @@
         "type": "object",
         "title": "React Component Select Demo Static Multiple",
         "required": [
-            "colors",
-            "role",
-            "clients",
-            "tags"
+            "colors"
         ],
         "properties": {
             "name": {
