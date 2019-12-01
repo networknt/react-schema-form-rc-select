@@ -50,6 +50,9 @@ import { RcSelect } from "react-schema-form-rc-select";
 
 
 ```
+### Documentation
+
+For more detailed document, please visit the [networknt document site](https://doc.networknt.com/consumer/react-schema-form-rc-select/)
 
 ### Contributing
 
