@@ -31,6 +31,8 @@ class App extends React.Component<void, State> {
             { label: "Static Single", value: 'data/static-single.json'},
             { label: "Static Multiple", value: 'data/static-multiple.json'},
             { label: "Relative Ref", value: 'data/relative-ref.json'},
+            { label: "Dynamic Single", value: 'data/dynamic-single.json'},
+            { label: "Dynamic Multiple", value: 'data/dynamic-multiple.json'},
             { label: "RC Select", value: 'data/rcselect.json' }
         ],
         validationResult: {},
