@@ -1,0 +1,31 @@
+{
+    "schema": {
+        "type": "object",
+        "title": "React Component Select Dynamic Single Demo",
+        "required": [
+            "role"
+        ],
+        "properties": {
+            "name": {
+                "title": "name",
+                "type": "string"
+            },
+            "role": {
+                "title": "Dynamic Single Select",
+                "type": "string"
+            }
+        }
+    },
+    "form": [
+        "name",
+        {
+            "key": "role",
+            "type": "rc-select",
+            "action": {
+                "get": {
+                    "url" : "https://lightapi.net/rdata/com.networknt?name=role"
+                }
+            }
+        }
+    ]
+}

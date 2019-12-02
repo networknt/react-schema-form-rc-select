@@ -1,0 +1,33 @@
+{
+    "schema": {
+        "type": "object",
+        "title": "React Component Select Dynamic Multiple Demo",
+        "required": [
+            "clients"
+        ],
+        "properties": {
+            "name": {
+                "title": "name",
+                "type": "string"
+            },
+            "clients": {
+                "title": "Dynamic Multiple Select",
+                "type": "array"
+            }
+        }
+    },
+    "form": [
+        "name",
+        {
+            "key": "clients",
+            "type": "rc-select",
+            "multiple": true,
+            "action": {
+                "get": {
+                    "url" : "https://lightapi.net/rdata/com.networknt?name=client"
+                }
+            }
+
+        }
+    ]
+}

@@ -76,7 +76,7 @@
             "type": "rc-select",
             "action": {
                 "get": {
-                    "url" : "https://www.networknt.com/api/rs?cmd={\"category\": \"client\", \"name\": \"getClientDropdown\", \"readOnly\": true}"
+                    "url" : "https://lightapi.net/rdata/com.networknt?name=role"
                 }
             }
         },
@@ -85,12 +85,10 @@
             "type": "rc-select",
             "multiple": true,
             "action": {
-                "post": {
-                    "url" : "https://www.networknt.com/api/rs",
-                    "parameter": { "category": "client",  "name": "getClientDropdown", "readOnly": true}
+                "get": {
+                    "url" : "https://lightapi.net/rdata/com.networknt?name=client"
                 }
             }
-
         },
         {
             "key": "tags",
