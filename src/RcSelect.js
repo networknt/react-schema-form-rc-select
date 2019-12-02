@@ -148,8 +148,8 @@ class RcSelect extends React.Component<Props, State> {
         let options = [];
         if (items && items.length > 0) {
             options = items.map(item => (
-                <Option key={item.value} value={item.value}>
-                    {item.label}
+                <Option key={Object.keys(item)[0]} value={Object.keys(item)[0]}>
+                    {item[Object.keys(item)[0]]}
                 </Option>
             ));
         } else if (titleMap) {
