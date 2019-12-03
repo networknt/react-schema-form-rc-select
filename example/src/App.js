@@ -10,7 +10,8 @@ import {
     FormControl,
     InputLabel,
     MenuItem,
-    Select
+    Select,
+    Grid
 } from "@material-ui/core";
 import ErrorBoundary from "./ErrorBoundary";
 import RcSelect from "react-schema-form-rc-select";
@@ -175,10 +176,10 @@ class App extends React.Component<void, State> {
         }
 
         return (
-            <div className="col-md-12">
+            <div>
                 <h1>Schema Form Example</h1>
-                <div className="row">
-                    <div className="col-sm-4">
+                <Grid container spacing={3}>
+                    <Grid item xs={4}>
                         <h3 style={{ display: "inline-block" }}>
                             The Generated Form
                         </h3>
@@ -186,8 +187,8 @@ class App extends React.Component<void, State> {
                         <h3>Model</h3>
                         <pre>{JSON.stringify(model, undefined, 2)}</pre>
                         {validate}
-                    </div>
-                    <div className="col-sm-8">
+                    </Grid>
+                    <Grid item xs={8}>
                         <h3>Select Example</h3>
                         <FormControl
                             classes={{ root: "form-group" }}
@@ -237,8 +238,8 @@ class App extends React.Component<void, State> {
                             value={schemaJson}
                             editorProps={{ $blockScrolling: true }}
                         />
-                    </div>
-                </div>
+                    </Grid>
+                </Grid>
             </div>
         );
     }
