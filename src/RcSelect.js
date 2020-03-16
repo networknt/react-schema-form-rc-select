@@ -59,7 +59,7 @@ class RcSelect extends React.Component<Props, State> {
             // only fetch from the server if all variables are resolved.
             if (!newUrl.includes("$(")) {
                 const { currentValue } = this.state;
-                fetch(newUrl, currentValue);
+                this.fetchFromUrl(newUrl, currentValue);
             }
         }
     }
@@ -78,7 +78,7 @@ class RcSelect extends React.Component<Props, State> {
             const { url } = this.state;
             if (newUrl !== url && !newUrl.includes("$(")) {
                 // url is changed and resolved
-                this.fetch(newUrl, emptyValue);
+                this.fetchFromUrl(newUrl, emptyValue);
             }
         }
     }
