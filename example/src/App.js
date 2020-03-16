@@ -34,6 +34,7 @@ class App extends React.Component<void, State> {
             { label: "Relative Ref", value: 'data/relative-ref.json'},
             { label: "Dynamic Single", value: 'data/dynamic-single.json'},
             { label: "Dynamic Multiple", value: 'data/dynamic-multiple.json'},
+            { label: "Conditional Query", value: 'data/conditional-query.json'},
             { label: "RC Select", value: 'data/rcselect.json' }
         ],
         validationResult: {},

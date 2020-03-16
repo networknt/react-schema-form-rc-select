@@ -9,10 +9,20 @@ import "rc-select/assets/index.css";
 
 type Props = {
     form: any,
+    model: any,
     value: any,
     error: any,
     onChangeValidate: any
 };
+
+var replacer = function(tpl, data) {
+  var re = /\$\(([^\)]+)?\)/g, match;
+  while(match = re.exec(tpl)) {
+    tpl = tpl.replace(match[0], data[match[1]])
+    re.lastIndex = 0;
+  }
+  return tpl;
+}
 
 class RcSelect extends React.Component<Props, State> {
     constructor(props) {
@@ -28,20 +38,28 @@ class RcSelect extends React.Component<Props, State> {
         } = this.props;
         const emptyValue = type === "array" ? [] : null;
         this.state = {
+            url: '',
             currentValue: value || emptyValue,
             items
         };
     }
-
-    componentDidMount() {
-        // load items if needed.
+    
+    componentDidUpdate(prevProps) {
         const {
-            form: { action }
+            form: { 
+                action,
+                schema: { type } 
+            },
+            model
         } = this.props;
-        const { get, post } = action || {};
-        if (action) {
-            if (get) {
-                fetch(get.url)
+        const emptyValue = type === "array" ? [] : null;
+        if(action) {
+            const { url } = action;
+            let newUrl = replacer(url, model);
+            if(newUrl != this.state.url && !newUrl.includes('$(')) {
+                // url is changed and resolved
+                this.setState({url: newUrl, currentValue: emptyValue});
+                fetch(newUrl)
                     .then(res => {
                         if (!res.ok) throw Error(res.statusText);
                         return res;
@@ -53,21 +71,31 @@ class RcSelect extends React.Component<Props, State> {
                     .catch(error => {
                         console.error(error);
                     });
-            } else if (post) {
-                fetch(post.url, {
-                    method: "POST",
-                    headers: {
-                        "content-type": "application/json"
-                    },
-                    body: JSON.stringify(post.parameter)
-                })
+            }
+        }
+    }
+
+
+    componentDidMount() {
+        // load items if needed.
+        const {
+            form: { action },
+            model
+        } = this.props;
+        
+        if (action) {
+            const { url } = action;
+            let newUrl = replacer(url, model);
+            this.setState({url: newUrl});
+            // only fetch from the server if all variables are resolved.
+            if(!newUrl.includes('$(')) {
+                fetch(newUrl)
                     .then(res => {
                         if (!res.ok) throw Error(res.statusText);
                         return res;
                     })
                     .then(res => res.json())
                     .then(res => {
-                        console.log(res);
                         this.setState({ items: res });
                     })
                     .catch(error => {
