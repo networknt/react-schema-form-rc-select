@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+## 0.3.3 - 2020-03-16
+### Added
+
+### Changed
+
+- Refactor the fetch and resolve lint issues.
+
 ## 0.3.2 - 2020-03-16
 ### Added
 

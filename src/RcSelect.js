@@ -15,13 +15,16 @@ type Props = {
     onChangeValidate: any
 };
 
-var replacer = function(tpl, data) {
-  var re = /\$\(([^\)]+)?\)/g, match;
-  while(match = re.exec(tpl)) {
-    tpl = tpl.replace(match[0], data[match[1]])
-    re.lastIndex = 0;
-  }
-  return tpl;
+function replacer(tpl, data) {
+    const re = /\$\(([^)]+)?\)/g;
+    let result = tpl;
+    let match = re.exec(result);
+    while (match) {
+        result = result.replace(match[0], data[match[1]]);
+        re.lastIndex = 0;
+        match = re.exec(result);
+    }
+    return result;
 }
 
 class RcSelect extends React.Component<Props, State> {
@@ -38,43 +41,11 @@ class RcSelect extends React.Component<Props, State> {
         } = this.props;
         const emptyValue = type === "array" ? [] : null;
         this.state = {
-            url: '',
+            url: "",
             currentValue: value || emptyValue,
             items
         };
     }
-    
-    componentDidUpdate(prevProps) {
-        const {
-            form: { 
-                action,
-                schema: { type } 
-            },
-            model
-        } = this.props;
-        const emptyValue = type === "array" ? [] : null;
-        if(action) {
-            const { url } = action;
-            let newUrl = replacer(url, model);
-            if(newUrl != this.state.url && !newUrl.includes('$(')) {
-                // url is changed and resolved
-                this.setState({url: newUrl, currentValue: emptyValue});
-                fetch(newUrl)
-                    .then(res => {
-                        if (!res.ok) throw Error(res.statusText);
-                        return res;
-                    })
-                    .then(res => res.json())
-                    .then(res => {
-                        this.setState({ items: res });
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
-            }
-        }
-    }
-
 
     componentDidMount() {
         // load items if needed.
@@ -82,25 +53,32 @@ class RcSelect extends React.Component<Props, State> {
             form: { action },
             model
         } = this.props;
-        
         if (action) {
             const { url } = action;
-            let newUrl = replacer(url, model);
-            this.setState({url: newUrl});
+            const newUrl = replacer(url, model);
             // only fetch from the server if all variables are resolved.
-            if(!newUrl.includes('$(')) {
-                fetch(newUrl)
-                    .then(res => {
-                        if (!res.ok) throw Error(res.statusText);
-                        return res;
-                    })
-                    .then(res => res.json())
-                    .then(res => {
-                        this.setState({ items: res });
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
+            if (!newUrl.includes("$(")) {
+                const { currentValue } = this.state;
+                fetch(newUrl, currentValue);
+            }
+        }
+    }
+
+    componentDidUpdate() {
+        const {
+            form: {
+                action,
+                schema: { type }
+            },
+            model
+        } = this.props;
+        const emptyValue = type === "array" ? [] : null;
+        if (action) {
+            const newUrl = replacer(action.url, model);
+            const { url } = this.state;
+            if (newUrl !== url && !newUrl.includes("$(")) {
+                // url is changed and resolved
+                this.fetch(newUrl, emptyValue);
             }
         }
     }
@@ -150,6 +128,21 @@ class RcSelect extends React.Component<Props, State> {
                 }
             );
         }
+    }
+
+    fetchFromUrl(newUrl, empty) {
+        fetch(newUrl)
+            .then(res => {
+                if (!res.ok) throw Error(res.statusText);
+                return res;
+            })
+            .then(res => res.json())
+            .then(res => {
+                this.setState({ url: newUrl, currentValue: empty, items: res });
+            })
+            .catch(error => {
+                console.error(error);
+            });
     }
 
     render() {
