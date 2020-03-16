@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+## 0.3.2 - 2020-03-16
+### Added
+
+### Changed
+
+- Add support to the cascade select between multiple selects.
+
 ## 0.3.1 - 2019-12-01
 ### Added
 
