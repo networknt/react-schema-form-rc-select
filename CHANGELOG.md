@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+## 0.3.6 - 2020-03-16
+### Added
+
+### Changed
+
+- Resolve a defect with replacer when model is empty.
+
 ## 0.3.4 - 2020-03-16
 ### Added
 

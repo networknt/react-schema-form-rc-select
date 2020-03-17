@@ -18,12 +18,12 @@ type Props = {
 function replacer(tpl, data) {
     const re = /\$\(([^)]+)?\)/g;
     let result = tpl;
-    if (Object.keys(data).length === 0 && data.constructor === Object)
-        return tpl;
     let match = re.exec(result);
     while (match) {
-        result = result.replace(match[0], data[match[1]]);
-        re.lastIndex = 0;
+        if (typeof data[match[1]] !== "undefined") {
+            result = result.replace(match[0], data[match[1]]);
+            re.lastIndex = 0;
+        }
         match = re.exec(result);
     }
     return result;
