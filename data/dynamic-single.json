@@ -3,14 +3,14 @@
         "type": "object",
         "title": "React Component Select Dynamic Single Demo",
         "required": [
-            "role"
+            "country"
         ],
         "properties": {
             "name": {
                 "title": "name",
                 "type": "string"
             },
-            "role": {
+            "country": {
                 "title": "Dynamic Single Select",
                 "type": "string"
             }
@@ -19,12 +19,10 @@
     "form": [
         "name",
         {
-            "key": "role",
+            "key": "country",
             "type": "rc-select",
             "action": {
-                "get": {
-                    "url" : "https://lightapi.net/rdata/com.networknt?name=role"
-                }
+                "url" : "https://lightapi.net/r/data?name=country"
             }
         }
     ]

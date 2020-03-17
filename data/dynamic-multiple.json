@@ -3,14 +3,14 @@
         "type": "object",
         "title": "React Component Select Dynamic Multiple Demo",
         "required": [
-            "clients"
+            "countries"
         ],
         "properties": {
             "name": {
                 "title": "name",
                 "type": "string"
             },
-            "clients": {
+            "countries": {
                 "title": "Dynamic Multiple Select",
                 "type": "array"
             }
@@ -19,13 +19,11 @@
     "form": [
         "name",
         {
-            "key": "clients",
+            "key": "countries",
             "type": "rc-select",
             "multiple": true,
             "action": {
-                "get": {
-                    "url" : "https://lightapi.net/rdata/com.networknt?name=client"
-                }
+                "url" : "https://lightapi.net/r/data?name=country"
             }
 
         }

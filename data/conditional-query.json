@@ -1,0 +1,53 @@
+{
+    "schema": {
+        "type": "object",
+        "title": "React Component Cascade Select",
+        "required": [
+            "country",
+            "province",
+            "city"
+        ],
+        "properties": {
+            "name": {
+                "title": "name",
+                "type": "string"
+            },
+            "country": {
+                "title": "Country",
+                "type": "string"
+            },
+            "province": {
+                "title": "Province",
+                "type": "string"
+            },
+            "city": {
+                "title": "City",
+                "type": "string"
+            }
+        }
+    },
+    "form": [
+        "name",
+        {
+            "key": "country",
+            "type": "rc-select",
+            "action": {
+                "url" : "https://lightapi.net/r/data?name=country"
+            }
+        },
+        {
+            "key": "province",
+            "type": "rc-select",
+            "action": {
+               "url" : "https://lightapi.net/r/data?name=province&rela=ctry-prov&from=$(country)"
+            }
+        },
+        {
+            "key": "city",
+            "type": "rc-select",
+            "action": {
+               "url" : "https://lightapi.net/r/data?name=city&rela=prov-city&from=$(province)"
+            }
+        }
+    ]
+}

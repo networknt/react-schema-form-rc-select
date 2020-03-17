@@ -5,8 +5,8 @@
         "required": [
             "accessLevel",
             "colors",
-            "role",
-            "clients",
+            "country",
+            "countries",
             "tags"
         ],
         "properties": {
@@ -23,11 +23,11 @@
                 "type": "array",
                 "maxItems": 3
             },
-            "role": {
+            "country": {
                 "title": "Dynamic Single Select",
                 "type": "string"
             },
-            "clients": {
+            "countries": {
                 "title": "Dynamic Multiple Select",
                 "type": "array"
             },
@@ -46,15 +46,15 @@
             "type": "rc-select",
             "multiple": false,
             "items": [
-                {"value": "A", "label": "Authorized to anyone"},
-                {"value": "N", "label": "Not Accessible"},
-                {"value": "C", "label": "Client Based"},
-                {"value": "R", "label": "Role Based"},
-                {"value": "U", "label": "User Based"},
-                {"value": "CR", "label": "Client and Role Based"},
-                {"value": "CU", "label": "Client and User Based"},
-                {"value": "RU", "label": "Role and User Based"},
-                {"value": "CRU", "label": "Client, Role and User Based"}
+                {"A": "Authorized to anyone"},
+                {"N": "Not Accessible"},
+                {"C": "Client Based"},
+                {"R": "Role Based"},
+                {"U": "User Based"},
+                {"CR": "Client and Role Based"},
+                {"CU": "Client and User Based"},
+                {"RU": "Role and User Based"},
+                {"CRU": "Client, Role and User Based"}
             ]
         },
         {
@@ -72,22 +72,18 @@
             ]
         },
         {
-            "key": "role",
+            "key": "country",
             "type": "rc-select",
             "action": {
-                "get": {
-                    "url" : "https://lightapi.net/rdata/com.networknt?name=role"
-                }
+                "url" : "https://lightapi.net/r/data?name=country"
             }
         },
         {
-            "key": "clients",
+            "key": "countries",
             "type": "rc-select",
             "multiple": true,
             "action": {
-                "get": {
-                    "url" : "https://lightapi.net/rdata/com.networknt?name=client"
-                }
+                "url" : "https://lightapi.net/r/data?name=country"
             }
         },
         {
@@ -97,9 +93,7 @@
             "tags": true,
             "maxTagTextLength": 20,
             "action": {
-                "get": {
-                    "url" : "data/testdata.json"
-                }
+                "url" : "data/testdata.json"
             }
 
         }
