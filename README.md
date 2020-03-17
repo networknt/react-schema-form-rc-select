@@ -61,4 +61,4 @@ See our [CONTRIBUTING.md](https://github.com/networknt/react-schema-form/CONTRIB
 
 ### License
 
-MIT Licensed. Copyright (c) Network New Technologies Inc. 2016-2019.
+MIT Licensed. Copyright (c) Network New Technologies Inc. 2016-2020.

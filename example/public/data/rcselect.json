@@ -75,7 +75,7 @@
             "key": "country",
             "type": "rc-select",
             "action": {
-                "url" : "https://localhost:8443/r/data?name=country"
+                "url" : "https://lightapi.net/r/data?name=country"
             }
         },
         {
@@ -83,7 +83,7 @@
             "type": "rc-select",
             "multiple": true,
             "action": {
-                "url" : "https://localhost:8443/r/data?name=country"
+                "url" : "https://lightapi.net/r/data?name=country"
             }
         },
         {
