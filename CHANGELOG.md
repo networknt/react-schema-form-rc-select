@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+## 0.3.7 - 2020-03-18
+### Added
+
+### Changed
+
+- handle the model is undefined when calling the replacer.
+
 ## 0.3.6 - 2020-03-16
 ### Added
 

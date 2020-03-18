@@ -18,13 +18,15 @@ type Props = {
 function replacer(tpl, data) {
     const re = /\$\(([^)]+)?\)/g;
     let result = tpl;
-    let match = re.exec(result);
-    while (match) {
-        if (typeof data[match[1]] !== "undefined") {
-            result = result.replace(match[0], data[match[1]]);
-            re.lastIndex = 0;
+    if (typeof data !== "undefined") {
+        let match = re.exec(result);
+        while (match) {
+            if (typeof data[match[1]] !== "undefined") {
+                result = result.replace(match[0], data[match[1]]);
+                re.lastIndex = 0;
+            }
+            match = re.exec(result);
         }
-        match = re.exec(result);
     }
     return result;
 }
