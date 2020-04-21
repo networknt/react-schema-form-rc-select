@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+## 0.3.8 - 2020-04-21
+### Added
+
+### Changed
+
+- Fixes #20 switch to InputLabel to support required flag in title.
+
 ## 0.3.7 - 2020-03-18
 ### Added
 
