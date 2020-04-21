@@ -3,6 +3,7 @@
  * Created by steve on 15/09/15.
  */
 import React from "react";
+import InputLabel from "@material-ui/core/InputLabel";
 import { ComposedComponent } from "react-schema-form";
 import Select, { Option } from "rc-select";
 import "rc-select/assets/index.css";
@@ -154,6 +155,8 @@ class RcSelect extends React.Component<Props, State> {
             error,
             form: {
                 title,
+                required,
+                labelProps,
                 className,
                 dropdownClassName,
                 dropdownStyle,
@@ -188,9 +191,12 @@ class RcSelect extends React.Component<Props, State> {
         if (error) {
             err = <div style={{ color: "red" }}>{error}</div>;
         }
+
         return (
             <div>
-                <div>{title}</div>
+                <InputLabel required={required} {...labelProps}>
+                    {title}
+                </InputLabel>
                 <Select
                     className={className}
                     dropdownClassName={dropdownClassName}
