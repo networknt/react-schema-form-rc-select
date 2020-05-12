@@ -167,6 +167,8 @@ class RcSelect extends React.Component<Props, State> {
                 multiple,
                 combobox,
                 disabled,
+                filterOption,
+                optionFilterProp,
                 style,
                 titleMap
             }
@@ -208,6 +210,8 @@ class RcSelect extends React.Component<Props, State> {
                     multiple={multiple}
                     combobox={combobox}
                     disabled={disabled}
+                    filterOption={filterOption}
+                    optionFilterProp={optionFilterProp}
                     value={currentValue}
                     onSelect={this.onSelect}
                     onDeselect={this.onDeselect}

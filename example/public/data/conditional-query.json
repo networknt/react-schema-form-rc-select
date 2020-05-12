@@ -38,6 +38,7 @@
         {
             "key": "province",
             "type": "rc-select",
+            "filterOption": true,
             "action": {
                "url" : "https://lightapi.net/r/data?name=province&rela=ctry-prov&from=$(country)"
             }
