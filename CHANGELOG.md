@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+## 0.3.9 - 2020-05-12
+### Added
+
+### Changed
+
+- Fixes #24 add filterOption and optionFilterProp to the rc-select component
+
 ## 0.3.8 - 2020-04-21
 ### Added
 
