@@ -142,6 +142,7 @@ class RcSelect extends React.Component<Props, State> {
                     return res.json();
                 }
                 return res.text().then(text => {
+                    console.error(text);
                     throw new Error(text);
                 });
             })
