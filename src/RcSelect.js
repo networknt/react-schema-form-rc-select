@@ -138,12 +138,12 @@ class RcSelect extends React.Component<Props, State> {
     fetchFromUrl(newUrl, empty) {
         fetch(newUrl)
             .then(res => {
-                if (!res.ok) {
-                    res.text().then(text => {
-                        throw new Error(text);
-                    });
+                if (res.ok) {
+                    return res.json();
                 }
-                return res.json();
+                return res.text().then(text => {
+                    throw new Error(text);
+                });
             })
             .then(res => {
                 this.setState({ url: newUrl, currentValue: empty, items: res });
