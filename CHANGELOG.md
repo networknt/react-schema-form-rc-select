@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 
+## 0.3.10 - 2020-06-24
+### Added
+
+### Changed
+
+- Fixes #26 for the fetch request, output the entire error instead of error code only
+
 ### Changed
 
 ## 0.3.9 - 2020-05-12
