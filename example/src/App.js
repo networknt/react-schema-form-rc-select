@@ -1,10 +1,9 @@
 import React from "react";
 import { SchemaForm, utils } from "react-schema-form";
-import "ace-builds";
-//import 'ace-builds/webpack-resolver'
+import AceEditor from "react-ace";
+import 'ace-builds/webpack-resolver';
 import "ace-builds/src-noconflict/mode-json";
 import "ace-builds/src-noconflict/theme-github";
-import AceEditor from "react-ace";
 import {
     Button,
     FormControl,
@@ -35,6 +34,7 @@ class App extends React.Component<void, State> {
             { label: "Dynamic Single", value: 'data/dynamic-single.json'},
             { label: "Dynamic Multiple", value: 'data/dynamic-multiple.json'},
             { label: "Conditional Query", value: 'data/conditional-query.json'},
+            { label: "Schema Form", value: 'data/schema-form.json'},
             { label: "RC Select", value: 'data/rcselect.json' }
         ],
         validationResult: {},
@@ -223,7 +223,6 @@ class App extends React.Component<void, State> {
                             width="800px"
                             onChange={this.onFormChange}
                             name="aceForm"
-                            setOptions={{ useWorker: false }}
                             value={formJson}
                             editorProps={{ $blockScrolling: true }}
                         />
@@ -235,7 +234,6 @@ class App extends React.Component<void, State> {
                             width="800px"
                             onChange={this.onSchemaChange}
                             name="aceSchema"
-                            setOptions={{ useWorker: false }}
                             value={schemaJson}
                             editorProps={{ $blockScrolling: true }}
                         />
