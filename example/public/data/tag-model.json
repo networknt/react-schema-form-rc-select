@@ -1,0 +1,38 @@
+{
+    "schema": {
+      "type": "object",
+      "title": "React Component Tag Demo",
+      "required": [
+        "tags"
+      ],
+      "properties": {
+        "name": {
+          "title": "name",
+          "type": "string"
+        },
+        "tags": {
+          "title": "Adding words not in the dropdown",
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 5
+        }
+      }
+    },
+    "form": [
+      "name",
+      {
+        "key": "tags",
+        "type": "rc-select",
+        "multiple": true,
+        "tags": true,
+        "maxTagTextLength": 20,
+        "action": {
+          "url": "data/testdata.json"
+        }
+      }
+    ],
+    "model": {
+      "tags": ["react", "java"]
+    }
+  }
+  

@@ -40,14 +40,16 @@
             "type": "rc-select",
             "filterOption": true,
             "action": {
-               "url" : "https://lightapi.net/r/data?name=province&rela=ctry-prov&from=$(country)"
+               "url" : "https://lightapi.net/r/data?name=province&rela=ctry-prov&from={0}",
+               "params": ["country"]
             }
         },
         {
             "key": "city",
             "type": "rc-select",
             "action": {
-               "url" : "https://lightapi.net/r/data?name=city&rela=prov-city&from=$(province)"
+               "url" : "https://lightapi.net/r/data?name=city&rela=prov-city&from={0}",
+               "params": ["province"]
             }
         }
     ]

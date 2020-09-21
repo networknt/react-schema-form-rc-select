@@ -34,7 +34,7 @@ class App extends React.Component<void, State> {
             { label: "Dynamic Single", value: 'data/dynamic-single.json'},
             { label: "Dynamic Multiple", value: 'data/dynamic-multiple.json'},
             { label: "Conditional Query", value: 'data/conditional-query.json'},
-            { label: "Schema Form", value: 'data/schema-form.json'},
+            { label: "Tag Model", value: 'data/tag-model.json'},
             { label: "RC Select", value: 'data/rcselect.json' }
         ],
         validationResult: {},
@@ -142,6 +142,7 @@ class App extends React.Component<void, State> {
 
         let schemaForm = "";
         let validate = "";
+        console.log("model", model);
         if (form.length > 0) {
             schemaForm = (
                 <ErrorBoundary>

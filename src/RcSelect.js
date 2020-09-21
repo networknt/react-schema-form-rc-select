@@ -1,136 +1,95 @@
-// @flow
 /**
  * Created by steve on 15/09/15.
  */
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import InputLabel from '@material-ui/core/InputLabel'
-import { ComposedComponent } from 'react-schema-form'
+import { ComposedComponent, utils } from 'react-schema-form'
 import Select, { Option } from 'rc-select'
 import 'rc-select/assets/index.css'
+import ObjectPath from 'object-path';
 
-function replacer(tpl, data) {
-  console.log(data);
-  const re = /\$\(([^)]+)?\)/g
-  let result = tpl
-  if (typeof data !== 'undefined') {
-    let match = re.exec(result)
-    console.log(match);
-    while (match) {
-      if (typeof data[match[1]] !== 'undefined') {
-        result = result.replace(match[0], data[match[1]])
-        re.lastIndex = 0
-      }
-      match = re.exec(result)
-    }
+String.prototype.format = function() {
+  var formatted = this;
+  for (var i = 0; i < arguments.length; i++) {
+      var regexp = new RegExp('\\{'+i+'\\}', 'gi');
+      formatted = formatted.replace(regexp, arguments[i]);
   }
-  console.log(result);
-  return result
-}
+  return formatted;
+};
 
-class RcSelect extends React.Component {
-  constructor(props) {
-    super(props)
-    this.onSelect = this.onSelect.bind(this)
-    this.onDeselect = this.onDeselect.bind(this)
-    const {
-      value,
-      form: {
-        schema: { type },
-        items
-      }
-    } = this.props
-    const emptyValue = type === 'array' ? [] : null
-    this.state = {
-      url: '',
-      currentValue: value || emptyValue,
-      items
+function RcSelect(props) {
+  const {
+    value,
+    error,
+    onChangeValidate,
+    form,
+    form: {
+      schema: { type },
+      action,
+      items,
+      title,
+      required,
+      labelProps,
+      className,
+      dropdownClassName,
+      dropdownStyle,
+      dropdownMenuStyle,
+      allowClear,
+      tags,
+      maxTagTextLength,
+      multiple,
+      combobox,
+      disabled,
+      filterOption,
+      optionFilterProp,
+      style,
+      titleMap
+    },
+    model
+  } = props
+  const emptyValue = type === 'array' ? [] : null
+  //console.log("state", utils.getValueFromModel(model, form.key), value, emptyValue);
+  const [currentValue, setCurrentValue] = useState(utils.getValueFromModel(model, form.key) || value || emptyValue);
+  const [menuItems, setMenuItems] = useState(items || []);
+  const { url, params } = action || {};
+  const paramValues = params && params.some( e => e != null) ? params.map(x => ObjectPath.get(model, x)) : [];
+
+  useEffect(() => {
+    let fetchUrl = params ? paramValues.length > 0 ? url.format(...paramValues) : '' : url;
+    //console.log("useEffect is called", fetchUrl);
+    if(fetchUrl) {
+      fetchFromUrl(fetchUrl);
     }
-  }
-
-  componentDidMount() {
-    // load items if needed.
-    const {
-      form: { action },
-      model
-    } = this.props
-    if (action) {
-      const { url } = action
-      const newUrl = replacer(url, model)
-      // only fetch from the server if all variables are resolved.
-      if (!newUrl.includes('$(')) {
-        const { currentValue } = this.state
-        this.fetchFromUrl(newUrl, currentValue)
-      }
+  }, paramValues)
+  
+  useEffect(() => {
+    if (type === 'array') {
+      //console.log('onChangeValidate is called with ', currentValue)
+      onChangeValidate(currentValue);
+    } else {
+      onChangeValidate({ target: { value: currentValue } });
     }
-  }
+  },[currentValue])
 
-  componentDidUpdate() {
-    const {
-      form: {
-        action,
-        schema: { type }
-      },
-      model
-    } = this.props
-    const emptyValue = type === 'array' ? [] : null
-    if (action) {
-      const newUrl = replacer(action.url, model)
-      const { url } = this.state
-      if (newUrl !== url && !newUrl.includes('$(')) {
-        // url is changed and resolved
-        this.fetchFromUrl(newUrl, emptyValue)
-      }
-    }
-  }
-
-  onSelect(value) {
-    const {
-      onChangeValidate,
-      form: {
-        schema: { type }
-      }
-    } = this.props
+  const onSelect = (value) => {
     if (type === 'array') {
       // multiple select type array
-      this.setState(
-        (prevState) => ({
-          currentValue: prevState.currentValue.concat(value)
-        }),
-        () => {
-          const { currentValue } = this.state
-          onChangeValidate(currentValue)
-        }
-      )
+      setCurrentValue(prevValue => prevValue.concat(value));
     } else {
-      // single select type string fake an event here.
-      this.setState({ currentValue: value })
-      onChangeValidate({ target: { value } })
+      //console.log('onSelect is called with value ', value)
+      setCurrentValue(value)
     }
   }
 
-  onDeselect(value) {
-    const {
-      onChangeValidate,
-      form: {
-        schema: { type }
-      }
-    } = this.props
+  const onDeselect = (value) => {
     if (type === 'array') {
-      this.setState(
-        (prevState) => ({
-          currentValue: prevState.currentValue.filter((e) => e !== value)
-        }),
-        () => {
-          const { currentValue } = this.state
-          onChangeValidate(currentValue)
-        }
-      )
+      setCurrentValue(prevValue => prevValue.filter(e => e !== value))
     }
   }
 
-  fetchFromUrl(newUrl, empty) {
+  const fetchFromUrl = (newUrl) => {
     fetch(newUrl)
-      .then((res) => {
+      .then(res => {
         if (res.ok) {
           return res.json()
         }
@@ -139,86 +98,61 @@ class RcSelect extends React.Component {
         })
       })
       .then((res) => {
-        this.setState({ url: newUrl, currentValue: empty, items: res })
+        setCurrentValue(emptyValue);
+        setMenuItems(res);
       })
       .catch((error) => {
         console.error(error)
       })
   }
 
-  render() {
-    const {
-      error,
-      form: {
-        title,
-        required,
-        labelProps,
-        className,
-        dropdownClassName,
-        dropdownStyle,
-        dropdownMenuStyle,
-        allowClear,
-        tags,
-        maxTagTextLength,
-        multiple,
-        combobox,
-        disabled,
-        filterOption,
-        optionFilterProp,
-        style,
-        titleMap
-      }
-    } = this.props
-    const { currentValue } = this.state
-    const { items } = this.state
-    let options = []
-    if (items && items.length > 0) {
-      options = items.map((item) => (
-        <Option key={Object.keys(item)[0]} value={Object.keys(item)[0]}>
-          {item[Object.keys(item)[0]]}
-        </Option>
-      ))
-    } else if (titleMap) {
-      options = titleMap.map((item) => (
-        <Option key={item.value} value={item.value}>
-          {item.name}
-        </Option>
-      ))
-    }
-    let err = ''
-    if (error) {
-      err = <div style={{ color: 'red' }}>{error}</div>
-    }
-
-    return (
-      <div>
-        <InputLabel required={required} {...labelProps}>
-          {title}
-        </InputLabel>
-        <Select
-          className={className}
-          dropdownClassName={dropdownClassName}
-          dropdownStyle={dropdownStyle}
-          dropdownMenuStyle={dropdownMenuStyle}
-          allowClear={allowClear}
-          tags={tags}
-          maxTagTextLength={maxTagTextLength}
-          multiple={multiple}
-          combobox={combobox}
-          disabled={disabled}
-          filterOption={filterOption}
-          optionFilterProp={optionFilterProp}
-          value={currentValue}
-          onSelect={this.onSelect}
-          onDeselect={this.onDeselect}
-          style={style || { width: '100%' }}
-        >
-          {options}
-        </Select>
-        {err}
-      </div>
-    )
+  let options = []
+  if (menuItems && menuItems.length > 0) {
+    options = menuItems.map((item) => (
+      <Option key={Object.keys(item)[0]} value={Object.keys(item)[0]}>
+        {item[Object.keys(item)[0]]}
+      </Option>
+    ))
+  } else if (titleMap) {
+    options = titleMap.map((item) => (
+      <Option key={item.value} value={item.value}>
+        {item.name}
+      </Option>
+    ))
   }
+  let err = ''
+  if (error) {
+    err = <div style={{ color: 'red' }}>{error}</div>
+  }
+
+  return (
+    <div>
+      <InputLabel required={required} {...labelProps}>
+        {title}
+      </InputLabel>
+      <Select
+        className={className}
+        dropdownClassName={dropdownClassName}
+        dropdownStyle={dropdownStyle}
+        dropdownMenuStyle={dropdownMenuStyle}
+        allowClear={allowClear}
+        tags={tags}
+        maxTagTextLength={maxTagTextLength}
+        multiple={multiple}
+        combobox={combobox}
+        disabled={disabled}
+        filterOption={filterOption}
+        optionFilterProp={optionFilterProp}
+        value={currentValue}
+        onSelect={onSelect}
+        onDeselect={onDeselect}
+        style={style || { width: '100%' }}
+      >
+        {options}
+      </Select>
+      {err}
+    </div>
+  )
 }
 
 export default ComposedComponent(RcSelect)
