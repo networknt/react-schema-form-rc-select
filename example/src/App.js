@@ -142,7 +142,7 @@ class App extends React.Component<void, State> {
 
         let schemaForm = "";
         let validate = "";
-        console.log("model", model);
+        //console.log("model", model);
         if (form.length > 0) {
             schemaForm = (
                 <ErrorBoundary>

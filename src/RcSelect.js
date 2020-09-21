@@ -3,7 +3,7 @@
  */
 import React, { useState, useEffect } from 'react'
 import InputLabel from '@material-ui/core/InputLabel'
-import { ComposedComponent, utils } from 'react-schema-form'
+import { ComposedComponent } from 'react-schema-form'
 import Select, { Option } from 'rc-select'
 import 'rc-select/assets/index.css'
 import ObjectPath from 'object-path';
@@ -48,8 +48,8 @@ function RcSelect(props) {
     model
   } = props
   const emptyValue = type === 'array' ? [] : null
-  //console.log("state", utils.getValueFromModel(model, form.key), value, emptyValue);
-  const [currentValue, setCurrentValue] = useState(utils.getValueFromModel(model, form.key) || value || emptyValue);
+  //console.log("state", value, emptyValue);
+  const [currentValue, setCurrentValue] = useState(value || emptyValue);
   const [menuItems, setMenuItems] = useState(items || []);
   const { url, params } = action || {};
   const paramValues = params && params.some( e => e != null) ? params.map(x => ObjectPath.get(model, x)) : [];
@@ -58,6 +58,7 @@ function RcSelect(props) {
     let fetchUrl = params ? paramValues.length > 0 ? url.format(...paramValues) : '' : url;
     //console.log("useEffect is called", fetchUrl);
     if(fetchUrl) {
+      //console.log("fetchUrl is called", fetchUrl)
       fetchFromUrl(fetchUrl);
     }
   }, paramValues)
@@ -98,7 +99,12 @@ function RcSelect(props) {
         })
       })
       .then((res) => {
-        setCurrentValue(emptyValue);
+        // reset value only single and params not null.
+        // this is to initial model values such as tags.
+        if(type !== 'array' && params) {
+          //console.log("set value", emptyValue)
+          setCurrentValue(emptyValue);
+        }
         setMenuItems(res);
       })
       .catch((error) => {
@@ -124,7 +130,7 @@ function RcSelect(props) {
   if (error) {
     err = <div style={{ color: 'red' }}>{error}</div>
   }
-
+  //console.log("currentValue", currentValue)
   return (
     <div>
       <InputLabel required={required} {...labelProps}>
