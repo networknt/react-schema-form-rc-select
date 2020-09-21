@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 
+## 0.3.16 - 2020-09-21
+### Added
+
+### Changed
+
+- Fixes #33 reset value only for single and params are not empty
+- fixes #32 change the format of the dynmaic url to string format
+- fixes #31 upgrade the project structure with create-react-library
+
 ## 0.3.14 - 2020-06-24
 ### Added
 
