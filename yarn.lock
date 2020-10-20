@@ -8195,10 +8195,15 @@ object-keys@^1.0.11, object-keys@^1.0.12, object-keys@^1.1.1:
   resolved "https://registry.yarnpkg.com/object-keys/-/object-keys-1.1.1.tgz#1c47f272df277f3b1daf061677d9c82e2322c60e"
   integrity sha512-NuAESUOUMrlIXOfHKzD6bpPu3tYt3xvjNdRIQ+FeT0lNb4K8WR70CaDxhuNguS2XG+GjkyMwOzsN5ZktImfhLA==
 
-object-path@0.11.4, object-path@^0.11.4:
+object-path@0.11.4:
   version "0.11.4"
   resolved "https://registry.yarnpkg.com/object-path/-/object-path-0.11.4.tgz#370ae752fbf37de3ea70a861c23bba8915691949"
   integrity sha1-NwrnUvvzfePqcKhhwju6iRVpGUk=
+
+object-path@^0.11.5:
+  version "0.11.5"
+  resolved "https://registry.yarnpkg.com/object-path/-/object-path-0.11.5.tgz#d4e3cf19601a5140a55a16ad712019a9c50b577a"
+  integrity sha512-jgSbThcoR/s+XumvGMTMf81QVBmah+/Q7K7YduKeKVWL7N111unR2d6pZZarSk6kY/caeNxUDyxOvMWyzoU2eg==
 
 object-visit@^1.0.0:
   version "1.0.1"
@@ -9921,10 +9926,10 @@ react-mde@^11.0.0:
   resolved "https://registry.yarnpkg.com/react-mde/-/react-mde-11.0.0.tgz#78b4d85c7d3508efef59cfc9e7b1432b8b72d2f0"
   integrity sha512-U3k/ITPXklEjXkKhR7rgI3Y7ii5V62slSmG+/rYDQaCAabNwX+5dULKpIxWWSyqi+PvsuRVEYx6vV4sECMMbCw==
 
-react-schema-form@^0.9.7:
-  version "0.9.7"
-  resolved "https://registry.yarnpkg.com/react-schema-form/-/react-schema-form-0.9.7.tgz#01f1843b570dbac6ad97fd5822243d4e4c9d5f8c"
-  integrity sha512-t+Gd+SnoziS5DRMDK3b3Q6LughiKOE167frtXlxNuRZvduwfsehknbAQpMqgBEguujlYyUuRZyP1rAtkkGbZZQ==
+react-schema-form@^0.9.9:
+  version "0.9.9"
+  resolved "https://registry.yarnpkg.com/react-schema-form/-/react-schema-form-0.9.9.tgz#8990f594cef5c74ac89d8e976da627690ec0c7e5"
+  integrity sha512-qKq5RsVE+oDi0B3Aic2vcgjFTXIaubMvSQupgXXUaTtbat+yEkUF0GFfl7rrDi3McpkbTF5lN2pR5mKAvKoalQ==
   dependencies:
     classnames "^2.2.6"
     lodash "^4.17.15"
