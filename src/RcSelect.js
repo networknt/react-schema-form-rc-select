@@ -2,6 +2,7 @@
  * Created by steve on 15/09/15.
  */
 import React, { useState, useEffect } from 'react'
+import Cookies from 'universal-cookie'
 import InputLabel from '@material-ui/core/InputLabel'
 import { ComposedComponent } from 'react-schema-form'
 import Select, { Option } from 'rc-select'
@@ -96,7 +97,11 @@ function RcSelect(props) {
   }
 
   const fetchFromUrl = (newUrl) => {
-    fetch(newUrl, { credentials: 'omit' })
+    const cookies = new Cookies()
+    const headers = { 'Content-Type': 'application/json' }
+    if (cookies.get('csrf'))
+      Object.assign(headers, { 'X-CSRF-TOKEN': cookies.get('csrf') })
+    fetch(newUrl, { headers, credentials: 'include' })
       .then((res) => {
         if (res.ok) {
           return res.json()
