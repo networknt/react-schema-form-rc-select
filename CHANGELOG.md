@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 
+## 0.3.18 - 2020-10-31
+### Added
+
+### Changed
+
+- Fixes #37 add X-CSRF-TOKEN to the header to integrate with light-portal
+
 ## 0.3.17 - 2020-10-31
 ### Added
 
