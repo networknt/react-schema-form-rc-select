@@ -6,23 +6,23 @@ import InputLabel from '@material-ui/core/InputLabel'
 import { ComposedComponent } from 'react-schema-form'
 import Select, { Option } from 'rc-select'
 import 'rc-select/assets/index.css'
-import ObjectPath from 'object-path';
+import ObjectPath from 'object-path'
 
-String.prototype.format = function() {
-  var formatted = this;
+/* eslint no-extend-native: ["error", { "exceptions": ["String"] }] */
+String.prototype.format = function () {
+  var formatted = this
   for (var i = 0; i < arguments.length; i++) {
-      var regexp = new RegExp('\\{'+i+'\\}', 'gi');
-      formatted = formatted.replace(regexp, arguments[i]);
+    var regexp = new RegExp('\\{' + i + '\\}', 'gi')
+    formatted = formatted.replace(regexp, arguments[i])
   }
-  return formatted;
-};
+  return formatted
+}
 
 function RcSelect(props) {
   const {
     value,
     error,
     onChangeValidate,
-    form,
     form: {
       schema: { type },
       action,
@@ -48,49 +48,56 @@ function RcSelect(props) {
     model
   } = props
   const emptyValue = type === 'array' ? [] : null
-  //console.log("state", value, emptyValue);
-  const [currentValue, setCurrentValue] = useState(value || emptyValue);
-  const [menuItems, setMenuItems] = useState(items || []);
-  const { url, params } = action || {};
-  const paramValues = params && params.some( e => e != null) ? params.map(x => ObjectPath.get(model, x)) : [];
+  // console.log("state", value, emptyValue);
+  const [currentValue, setCurrentValue] = useState(value || emptyValue)
+  const [menuItems, setMenuItems] = useState(items || [])
+  const { url, params } = action || {}
+  const paramValues =
+    params && params.some((e) => e != null)
+      ? params.map((x) => ObjectPath.get(model, x))
+      : []
 
   useEffect(() => {
-    let fetchUrl = params ? paramValues.length > 0 ? url.format(...paramValues) : '' : url;
-    //console.log("useEffect is called", fetchUrl);
-    if(fetchUrl) {
-      //console.log("fetchUrl is called", fetchUrl)
-      fetchFromUrl(fetchUrl);
+    const fetchUrl = params
+      ? paramValues.length > 0
+        ? url.format(...paramValues)
+        : ''
+      : url
+    // console.log("useEffect is called", fetchUrl);
+    if (fetchUrl) {
+      // console.log("fetchUrl is called", fetchUrl)
+      fetchFromUrl(fetchUrl)
     }
   }, paramValues)
-  
+
   useEffect(() => {
     if (type === 'array') {
-      //console.log('onChangeValidate is called with ', currentValue)
-      onChangeValidate(currentValue);
+      // console.log('onChangeValidate is called with ', currentValue)
+      onChangeValidate(currentValue)
     } else {
-      onChangeValidate({ target: { value: currentValue } });
+      onChangeValidate({ target: { value: currentValue } })
     }
-  },[currentValue])
+  }, [currentValue])
 
   const onSelect = (value) => {
     if (type === 'array') {
       // multiple select type array
-      setCurrentValue(prevValue => prevValue.concat(value));
+      setCurrentValue((prevValue) => prevValue.concat(value))
     } else {
-      //console.log('onSelect is called with value ', value)
+      // console.log('onSelect is called with value ', value)
       setCurrentValue(value)
     }
   }
 
   const onDeselect = (value) => {
     if (type === 'array') {
-      setCurrentValue(prevValue => prevValue.filter(e => e !== value))
+      setCurrentValue((prevValue) => prevValue.filter((e) => e !== value))
     }
   }
 
   const fetchFromUrl = (newUrl) => {
-    fetch(newUrl)
-      .then(res => {
+    fetch(newUrl, { credentials: 'omit' })
+      .then((res) => {
         if (res.ok) {
           return res.json()
         }
@@ -101,11 +108,11 @@ function RcSelect(props) {
       .then((res) => {
         // reset value only single and params not null.
         // this is to initial model values such as tags.
-        if(type !== 'array' && params) {
-          //console.log("set value", emptyValue)
-          setCurrentValue(emptyValue);
+        if (type !== 'array' && params) {
+          // console.log("set value", emptyValue)
+          setCurrentValue(emptyValue)
         }
-        setMenuItems(res);
+        setMenuItems(res)
       })
       .catch((error) => {
         console.error(error)
@@ -130,7 +137,7 @@ function RcSelect(props) {
   if (error) {
     err = <div style={{ color: 'red' }}>{error}</div>
   }
-  //console.log("currentValue", currentValue)
+  // console.log("currentValue", currentValue)
   return (
     <div>
       <InputLabel required={required} {...labelProps}>

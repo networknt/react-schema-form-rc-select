@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 
+## 0.3.17 - 2020-10-31
+### Added
+
+### Changed
+
+- Fixes #36 add credentials omit in the fetch for light-portal query
+
 ## 0.3.16 - 2020-09-21
 ### Added
 
