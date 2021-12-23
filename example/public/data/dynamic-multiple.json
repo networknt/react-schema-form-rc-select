@@ -23,7 +23,7 @@
             "type": "rc-select",
             "multiple": true,
             "action": {
-                "url" : "https://lightapi.net/r/data?name=country"
+                "url" : "https://dev.lightapi.net/r/data?name=country"
             }
 
         }
