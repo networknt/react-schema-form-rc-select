@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 
+## 0.3.19 - 2021-12-25
+### Added
+
+### Changed
+
+- Fixes #53 do not reset the emptyValue for dynamic field with params
+
 ## 0.3.18 - 2020-10-31
 ### Added
 

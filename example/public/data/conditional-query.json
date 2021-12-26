@@ -1,4 +1,9 @@
 {
+    "model": {
+        "country": "CAN",
+        "province": "ON",
+        "city": "Toronto"
+    },
     "schema": {
         "type": "object",
         "title": "React Component Cascade Select",

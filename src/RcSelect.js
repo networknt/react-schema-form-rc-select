@@ -111,12 +111,6 @@ function RcSelect(props) {
         })
       })
       .then((res) => {
-        // reset value only single and params not null.
-        // this is to initial model values such as tags.
-        if (type !== 'array' && params) {
-          // console.log("set value", emptyValue)
-          setCurrentValue(emptyValue)
-        }
         setMenuItems(res)
       })
       .catch((error) => {
