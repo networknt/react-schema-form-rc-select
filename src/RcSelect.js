@@ -3,7 +3,7 @@
  */
 import React, { useState, useEffect } from 'react'
 import Cookies from 'universal-cookie'
-import InputLabel from '@material-ui/core/InputLabel'
+import InputLabel from '@mui/material/InputLabel'
 import { ComposedComponent } from 'react-schema-form'
 import Select, { Option } from 'rc-select'
 import 'rc-select/assets/index.css'

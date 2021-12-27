@@ -3,18 +3,20 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider, StyledEngineProvider, createTheme, adaptV4Theme } from '@mui/material/styles';
 
-const theme = createMuiTheme({
+const theme = createTheme(adaptV4Theme({
     typography: {
         useNextVariants: true,
     },
-});
+}));
 
 ReactDOM.render(
-    <MuiThemeProvider theme={theme}>
-        <App />
-    </MuiThemeProvider>,
+    <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+            <App />
+        </ThemeProvider>
+    </StyledEngineProvider>,
     document.getElementById('root')
 );
 

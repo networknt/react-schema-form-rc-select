@@ -11,7 +11,7 @@ import {
     MenuItem,
     Select,
     Grid
-} from "@material-ui/core";
+} from "@mui/material";
 import ErrorBoundary from "./ErrorBoundary";
 import RcSelect from "react-schema-form-rc-select";
 
