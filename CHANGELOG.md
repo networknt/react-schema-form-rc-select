@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 
+## 1.0.1 - 2021-12-26
+### Added
+
+### Changed
+
+- Fixes #52 Upgrade to the react 17 and material ui 5
+
 ## 0.3.19 - 2021-12-25
 ### Added
 
