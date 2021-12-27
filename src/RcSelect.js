@@ -6,7 +6,7 @@ import Cookies from 'universal-cookie'
 import InputLabel from '@mui/material/InputLabel'
 import { ComposedComponent } from 'react-schema-form'
 import Select, { Option } from 'rc-select'
-import 'rc-select/assets/index.css'
+import 'rc-select/assets/index.css';
 import ObjectPath from 'object-path'
 
 /* eslint no-extend-native: ["error", { "exceptions": ["String"] }] */

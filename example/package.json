@@ -19,18 +19,15 @@
     "react-ace": "^9.5.0",
     "react-dom": "link:../node_modules/react-dom",
     "react-mde": "^11.5.0",
+    "react-schema-form": "link:../node_modules/react-schema-form",
+    "react-schema-form-rc-select": "link:..",
+    "react-scripts": "link:../node_modules/react-scripts",
     "react-select": "^5.2.1",
     "showdown": "^1.9.1",
-    "supports-color": "^9.2.1",
-    "react-scripts": "link:../node_modules/react-scripts",
-    "react-schema-form": "link:../node_modules/react-schema-form",
-    "react-schema-form-rc-select": "link:.."
+    "supports-color": "^9.2.1"
   },
   "devDependencies": {
     "@babel/plugin-syntax-object-rest-spread": "^7.8.3"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "browserslist": [
     ">0.2%",
