@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 
+## 1.0.2 - 2022-01-17
+### Added
+
+### Changed
+
+- Fixes #57 avoid setting the value if the value is null
+
 ## 1.0.1 - 2021-12-26
 ### Added
 
