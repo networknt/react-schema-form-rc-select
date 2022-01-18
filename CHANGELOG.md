@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 
+## 1.0.4 - 2022-01-18
+### Added
+
+### Changed
+
+- Fixes #59 switch onInputKeydown to onChange as the last char is not captured
+
 ## 1.0.3 - 2022-01-18
 ### Added
 
