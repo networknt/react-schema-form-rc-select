@@ -93,6 +93,13 @@ function RcSelect(props) {
     }
   }
 
+  const onInputKeyDown = (event) => {
+    // combobox here with single value, not going to impact the tags
+    if (type !== 'array') {
+      setCurrentValue(event.target.value);
+    }
+  }
+
   const onDeselect = (value) => {
     if (type === 'array') {
       setCurrentValue((prevValue) => prevValue.filter((e) => e !== value))
@@ -161,6 +168,7 @@ function RcSelect(props) {
         value={currentValue}
         onSelect={onSelect}
         onDeselect={onDeselect}
+        onInputKeyDown={onInputKeyDown}
         style={style || { width: '100%' }}
       >
         {options}

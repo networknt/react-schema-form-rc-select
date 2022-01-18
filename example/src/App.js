@@ -37,6 +37,7 @@ class App extends React.Component<void, State> {
             { label: "Tag Model", value: 'data/tag-model.json'},
             { label: "Tag Portal", value: 'data/portal-tag.json'},
             { label: "RC Select", value: 'data/rcselect.json' },
+            { label: "Combobox Select", value: 'data/combobox-select.json' },
             { label: "Properties Ref", value: 'data/properties-ref.json' }
         ],
         validationResult: {},
