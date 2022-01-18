@@ -1,0 +1,50 @@
+{
+    "schema": {
+        "title": "Properties Criteria",
+        "type": "object",
+        "properties": {
+            "host": {
+                "type": "string"
+            },
+            "module": {
+                "type": "string"
+            },
+            "scope": {
+                "type": "string"
+            }
+        }
+    },
+    "form": [
+        {
+            "key": "host",
+            "type": "rc-select",
+            "filterOption": true,
+            "action": {
+                "url": "/config-server/configs/property/ref?name=host"
+            }
+        },
+        {
+            "key": "module",
+            "type": "rc-select",
+            "filterOption": true,
+            "action": {
+                "url": "/config-server/configs/property/ref?name=module&host={0}",
+                "params": [
+                    "host"
+                ]
+            }
+        },
+        {
+            "key": "scope",
+            "type": "rc-select",
+            "filterOption": true,
+            "action": {
+                "url": "/config-server/configs/property/ref?name=scope&host={0}&module={1}",
+                "params": [
+                    "host",
+                    "module"
+                ]
+            }
+        }
+    ]
+}

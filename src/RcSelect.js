@@ -76,7 +76,10 @@ function RcSelect(props) {
       // console.log('onChangeValidate is called with ', currentValue)
       onChangeValidate(currentValue)
     } else {
-      onChangeValidate({ target: { value: currentValue } })
+      // don't set the value if the currentValue is null
+      if(currentValue !== null) {
+        onChangeValidate({ target: { value: currentValue } })
+      }
     }
   }, [currentValue])
 
