@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 
+## 1.0.3 - 2022-01-18
+### Added
+
+### Changed
+
+- Fixes #58 add onInputKeyDown to handle the combobox single value update
+
 ## 1.0.2 - 2022-01-17
 ### Added
 
