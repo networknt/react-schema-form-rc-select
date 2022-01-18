@@ -48,7 +48,7 @@ function RcSelect(props) {
     },
     model
   } = props
-  const emptyValue = type === 'array' ? [] : null
+  const emptyValue = type === 'array' ? [] : undefined
   // console.log("state", value, emptyValue);
   const [currentValue, setCurrentValue] = useState(value || emptyValue)
   const [menuItems, setMenuItems] = useState(items || [])
@@ -93,10 +93,9 @@ function RcSelect(props) {
     }
   }
 
-  const onInputKeyDown = (event) => {
-    // combobox here with single value, not going to impact the tags
-    if (type !== 'array') {
-      setCurrentValue(event.target.value);
+  const onChange = (v) => {
+    if (combobox && type !== 'array') {
+      setCurrentValue(v);
     }
   }
 
@@ -168,7 +167,7 @@ function RcSelect(props) {
         value={currentValue}
         onSelect={onSelect}
         onDeselect={onDeselect}
-        onInputKeyDown={onInputKeyDown}
+        onChange={onChange}
         style={style || { width: '100%' }}
       >
         {options}
