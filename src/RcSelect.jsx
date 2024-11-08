@@ -34,7 +34,6 @@ function RcSelect(props) {
       className,
       dropdownClassName,
       dropdownStyle,
-      dropdownMenuStyle,
       allowClear,
       tags,
       maxTagTextLength,
@@ -43,7 +42,6 @@ function RcSelect(props) {
       disabled,
       filterOption,
       optionFilterProp,
-      style,
       titleMap
     },
     model
@@ -155,7 +153,6 @@ function RcSelect(props) {
         className={className}
         dropdownClassName={dropdownClassName}
         dropdownStyle={dropdownStyle}
-        dropdownMenuStyle={dropdownMenuStyle}
         allowClear={allowClear}
         tags={tags}
         maxTagTextLength={maxTagTextLength}
@@ -168,7 +165,6 @@ function RcSelect(props) {
         onSelect={onSelect}
         onDeselect={onDeselect}
         onChange={onChange}
-        style={style || { width: '100%' }}
       >
         {options}
       </Select>
