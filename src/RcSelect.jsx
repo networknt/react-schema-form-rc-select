@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react'
 import Cookies from 'universal-cookie'
 import InputLabel from '@mui/material/InputLabel'
 import { ComposedComponent } from 'react-schema-form'
-import Select, { Option } from 'rc-select'
+import Select from 'react-select'
 import 'rc-select/assets/index.css';
 import ObjectPath from 'object-path'
 
@@ -47,7 +47,6 @@ function RcSelect(props) {
     model
   } = props
   const emptyValue = type === 'array' ? [] : undefined
-  // console.log("state", value, emptyValue);
   const [currentValue, setCurrentValue] = useState(value || emptyValue)
   const [menuItems, setMenuItems] = useState(items || [])
   const { url, params } = action || {}
@@ -143,30 +142,16 @@ function RcSelect(props) {
   if (error) {
     err = <div style={{ color: 'red' }}>{error}</div>
   }
-  // console.log("currentValue", currentValue)
+  console.log("display a static select");
   return (
     <div>
       <InputLabel required={required} {...labelProps}>
         {title}
       </InputLabel>
-      <Select
-        className={className}
-        dropdownClassName={dropdownClassName}
-        dropdownStyle={dropdownStyle}
-        allowClear={allowClear}
-        tags={tags}
-        maxTagTextLength={maxTagTextLength}
-        multiple={multiple}
-        combobox={combobox}
-        disabled={disabled}
-        filterOption={filterOption}
-        optionFilterProp={optionFilterProp}
-        value={currentValue}
-        onSelect={onSelect}
-        onDeselect={onDeselect}
-        onChange={onChange}
-      >
-        {options}
+      <Select>
+        <Option value="jack">jack</Option>
+        <Option value="lucy">lucy</Option>
+        <Option value="yiminghe">yiminghe</Option>
       </Select>
       {err}
     </div>

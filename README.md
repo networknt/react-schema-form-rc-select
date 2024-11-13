@@ -1,3 +1,7 @@
+# The rc-select is replaced by the DynaSelect in the react-schema-form implemented with Autocomplete. 
+
+The concept of extending the react-schema-form without touching the source repo still works and it is demo in the repo. However, it looks like the effort is not adjustable. If someone wants to add now form component, please submit a PR in the react-schema-form. 
+
 # react-schema-form-rc-select
 
 [![Join the chat at https://gitter.im/networknt/react-schema-form](https://badges.gitter.im/networknt/react-schema-form.svg)](https://gitter.im/networknt/react-schema-form?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
