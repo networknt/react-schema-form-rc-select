@@ -1,7 +1,9 @@
 {
   "name": "react-schema-form-rc-select",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "React json schema form RcSelect Extension",
+  "private": false,
+  "type": "module",
   "keywords": [
     "json schema",
     "schema form",
@@ -14,78 +16,61 @@
   ],
   "author": "Steve Hu",
   "license": "MIT",
-  "main": "dist/index.js",
-  "module": "dist/index.modern.js",
-  "source": "src/index.js",
-  "engines": {
-    "node": ">=14"
-  },
   "scripts": {
-    "build": "microbundle-crl --no-compress --format modern,cjs",
-    "start": "microbundle-crl watch --no-compress --format modern,cjs",
-    "prepare": "run-s build",
-    "test": "run-s test:unit test:lint test:build",
-    "test:build": "run-s build",
-    "test:lint": "eslint .",
-    "test:unit": "cross-env CI=1 react-scripts test --env=jsdom",
-    "test:watch": "react-scripts test --env=jsdom",
-    "predeploy": "cd example && yarn install && yarn run build",
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "predeploy": "cd example && yarn install && yarn build",
     "deploy": "gh-pages -d example/build"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/networknt/react-schema-form-rc-select.git"
-  },
-  "peerDependencies": {
-    "@emotion/react": "^11.6.0",
-    "@emotion/styled": "^11.6.0",
-    "@mui/icons-material": "^5.1.0",
-    "@mui/material": "^5.1.0",
-    "@mui/styles": "^5.1.0",
-    "@mui/x-data-grid": "^5.0.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-is": "^17.0.2"
-  },
   "dependencies": {
-    "classnames": "^2.5.1",
-    "lodash": "^4.17.15",
     "object-path": "^0.11.8",
-    "rc-select": "^14.16.2",
-    "react-schema-form": "^1.0.4",
-    "tv4": "^1.3.0",
+    "rc-select": "^14.16.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-schema-form": "^1.0.5",
+    "react-select": "^5.8.2",
     "universal-cookie": "^7.2.2"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.25.9",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@eslint/js": "^9.13.0",
+    "@mui/icons-material": "^6.1.6",
+    "@mui/material": "^6.1.6",
+    "@mui/styles": "^6.1.6",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "eslint": "^9.13.0",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.14",
+    "gh-pages": "^6.2.0",
+    "globals": "^15.11.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "vite": "^5.4.10"
+  },
+  "peerDependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^6.1.6",
     "@mui/material": "^6.1.6",
     "@mui/styles": "^6.1.6",
-    "@mui/x-data-grid": "^7.22.0",
-    "cross-env": "^7.0.3",
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.8",
-    "eslint": "^9.13.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-config-standard": "^17.1.0",
-    "eslint-config-standard-react": "^13.0.0",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-node": "^11.0.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-promise": "^7.1.0",
-    "eslint-plugin-react": "^7.37.2",
-    "eslint-plugin-standard": "^5.0.0",
-    "gh-pages": "^6.2.0",
-    "microbundle-crl": "^0.13.10",
-    "npm-run-all": "^4.1.5",
-    "prettier": "^3.3.3",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-scripts": "^5.0.1"
+    "react-dom": "^18.3.1"
   },
   "files": [
     "dist"
-  ]
+  ],
+  "main": "./dist/react-schema-form-rc-select.umd.cjs",
+  "module": "./dist/react-schema-form-rc-select.js",
+  "exports": {
+    ".": {
+      "import": "./dist/react-schema-form-rc-select.js",
+      "require": "./dist/react-schema-form-rc-select.umd.cjs"
+    }
+  }
 }
